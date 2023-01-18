@@ -84,3 +84,4 @@
 </section>
 <!-- Section: Design Block -->
 <?php require_once(__DIR__ . '/require/footer.php'); ?>
+<?php require_once(__DIR__ . '/require/bdd-off.php'); ?>
