@@ -6,7 +6,6 @@
         .cascading-right {
             margin-right: -50px;
         }
-
         @media (max-width: 992px) {
             .cascading-right {
                 margin-right: 0;
@@ -18,24 +17,21 @@
     <div class="container py-4">
         <div class="row g-0 align-items-center">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="card cascading-right shadow-sm" style="
-            background: hsla(0, 0%, 100%, 0.55);
-            backdrop-filter: blur(30px);
-            ">
+                <div class="card cascading-right shadow-sm" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
                     <div class="card-body p-5 shadow-5 text-center">
                         <h2 class="fw-bold mb-5">Inscrivez-vous !</h2>
-                        <form>
+                        <form action="functions/form-control.php?func=register" method="post">
                             <!-- Nom et prenom sur 2 colonnes sur 1 ligne -->
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
-                                        <input type="text" id="prenom" class="form-control" />
+                                        <input type="text" id="prenom" name="prenom" class="form-control" require/>
                                         <label class="form-label" for="prenom">Prénom</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
-                                        <input type="text" id="nom" class="form-control" />
+                                        <input type="text" id="nom" name="nom" class="form-control" require />
                                         <label class="form-label" for="nom">Nom</label>
                                     </div>
                                 </div>
@@ -43,18 +39,23 @@
 
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="email" id="email" class="form-control" />
-                                <label class="form-label" for="email">Email</label>
+                                <input type="mail" id="mail" name="mail" class="form-control" require/>
+                                <label class="form-label" for="mail">Email</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="mdp" class="form-control" />
-                                <label class="form-label" for="mdp">Password</label>
+                                <input type="password" id="mdp" name="mdp" class="form-control" pattern="[A-z0-9]{8,}" require/>
+                                <label class="form-label" for="mdp">Password
+                                    <ol>
+                                        <li>Au moins 8 caractères</li>
+                                        <li>Pas de caractères spéciaux</li>
+                                    </ol>
+                                </label>
                             </div>
                             <!-- Password confirm input -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="mdp-repeat" class="form-control" />
+                                <input type="password" id="mdp-repeat" name="mdp-repeat" class="form-control" require/>
                                 <label class="form-label" for="mdp-repeat">Confirm Password</label>
                             </div>
 
