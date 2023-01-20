@@ -4,25 +4,24 @@ if (!empty($_GET['func'])) {
     $function = $_GET['func'];
 
     switch ($function) {
-
         case 'register':
             // ? Si la confirmation du MDP est confirmée, le script vérifie et éxecute les différentes requêtes
             if ($_POST['mdp'] == $_POST['mdp-repeat']) {
+                
+                // ? Attribution des entrées utilisateurs
+                $userPrenom = htmlspecialchars($_POST['prenom']);
+                $userNom = htmlspecialchars($_POST['nom']);
+                $userMail = htmlspecialchars($_POST['mail']);
+                $userMDP = htmlspecialchars($_POST['mdp']);
+                // ! Hashage du MDP
+                $userMDP = password_hash($userMDP, PASSWORD_DEFAULT);
+
                 // ? Préparation d'une requête de vérification de compte éxistant ?
                 $sth_compare = $connexion->prepare("SELECT COUNT(*) FROM users WHERE mail = '$userMail'");
                 $sth_compare->execute();
                 $compare = $sth_compare->fetch(PDO::FETCH_ASSOC);
 
-                if ($compare == 0) {
-
-                    // ? Attribution des entrées utilisateurs
-                    $userPrenom = htmlspecialchars($_POST['prenom']);
-                    $userNom = htmlspecialchars($_POST['nom']);
-                    $userMail = htmlspecialchars($_POST['mail']);
-                    $userMDP = htmlspecialchars($_POST['mdp']);
-                    // ! Hashage du MDP
-                    $userMDP = password_hash($userMDP, PASSWORD_DEFAULT);
-
+                if ($compare["COUNT(*)"] == 0) {
                     // ? Préparation d'une requête pour l'ajout du compte dans la BDD
                     $sth_register = $connexion->prepare("INSERT INTO users(nom, prenom, mail, mot_de_passe) 
                     VALUES(:nom, :prenom, :mail, :mot_de_passe)");
@@ -42,6 +41,7 @@ if (!empty($_GET['func'])) {
             } else {
                 // ? Si le mot de passe n'est pas correctement saisi, l'utilisateur est redirigé vers la page d'inscription
                 header('location: http://localhost/bootstrap/form-connexion/register.php');
+
             }
             break;
 
@@ -51,23 +51,23 @@ if (!empty($_GET['func'])) {
             $userMDP = htmlspecialchars($_POST['mdp']);
 
             // ? Préparation d'une requête de recherche d'identifiants
-            $sth_compare = $connexion->prepare("SELECT mail, mot_de_passe FROM users WHERE mail = '$userMail'");
+            $sth_compare = $connexion->prepare("SELECT * FROM users WHERE mail = '$userMail'");
             $sth_compare->execute();
             $userLogin = $sth_compare->fetch(PDO::FETCH_ASSOC);
 
-            // ? Si la requête renvoie un resultat...
-            if (!empty($userLogin)) {
-                // ? ... et que le mot de passe correspond, on redirige l'utilisateur vers la page d'accueil
-                if (password_verify($userMDP, $userLogin['mot_de_passe'])) {
-
-                    // TODO [ GERER LES SESSIONS ET PRIVILEGES ICI]
-
-                    header('location: http://localhost/bootstrap/form-connexion/');
-                }
+            // ? Si la requête renvoie un resultat... et que le mot de passe correspond, on redirige l'utilisateur vers la page d'accueil
+            if ((!empty($userLogin)) && (password_verify($userMDP, $userLogin['mot_de_passe']))) {
+                $_SESSION['role'] = $userLogin['role'];
+                $_SESSION['username'] = $userLogin['prenom'] . " " . $userLogin['nom'];
+                header('location: http://localhost/bootstrap/form-connexion/');
             } else {
                 // ? Si les identifiants ne correspondent pas, on redirige l'utilisateur vers le formulaire de connexion
                 header('location: http://localhost/bootstrap/form-connexion/login.php');
             }
+            break;
+        case 'logout':
+            session_destroy();
+            header('location: http://localhost/bootstrap/form-connexion/index.php');
             break;
     }
 } else {

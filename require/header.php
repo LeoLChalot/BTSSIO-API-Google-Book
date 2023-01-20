@@ -23,8 +23,12 @@
             </ul>
 
             <div class="col-md-3 text-end">
-                <a href="login.php"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
-                <a href="register.php"><button type="button" class="btn btn-primary">Sign up</button></a>
+                <?php if (empty($_SESSION)) : ?>
+                    <a href="login.php"><button type="button" class="btn btn-outline-primary me-2">Connexion</button></a>
+                    <a href="register.php"><button type="button" class="btn btn-primary">Inscription</button></a>
+                <?php else : ?>
+                    <a href="functions/form-control.php?func=logout"><button type="button" class="btn btn-primary">Log Out</button></a>
+                <?php endif ?>
             </div>
         </header>
     </div>
