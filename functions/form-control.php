@@ -2,7 +2,6 @@
 
 if (!empty($_GET['func'])) {
     $function = $_GET['func'];
-
     switch ($function) {
         case 'register':
             // ? Si la confirmation du MDP est confirmée, le script vérifie et éxecute les différentes requêtes

@@ -19,7 +19,6 @@ if (!empty($_GET['func'])) {
                     $sth_userDelete->execute();
                     header('location: ../admin_dashboard.php');
                 break;
-
             default:
                 header('location: ../index.php');
                 break;
