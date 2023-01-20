@@ -27,6 +27,7 @@
                     </div>
                     <div>
                         <p>Je réalise tout au long de mon cursus supérieur un tas de projets et de mises en situations, que ce soit en développement FrontEnd ou BackEnd, n'hésitez pas à jeter un oeil à mon portfolio !</p>
+                        <p>Pour les curieux, vous trouverez mon CV juste <a href="assets/CV/larou-chalot-leo-CV.pdf" download="LAROU-CHALOT-LEO_CV"><button type="button" class="btn btn-success">ici !</button></a></p>
                     </div>
                     <hr>
                     

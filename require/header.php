@@ -26,8 +26,8 @@
                             </svg>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item active" href="http://localhost/bootstrap/form-connexion/admin_dashboard.php">List Users</a></li>
-                            <li><a class="dropdown-item" href="http://localhost/bootstrap/form-connexion/admin_dashboard.php">Messages</a></li>
+                            <li><a class="dropdown-item active" href="http://localhost/bootstrap/form-connexion/admin_dashboard.php?display=users">List Users</a></li>
+                            <li><a class="dropdown-item" href="http://localhost/bootstrap/form-connexion/admin_dashboard.php?display=messages">Messages</a></li>
                             <li><a class="dropdown-item" href="#">In progress...</a></li>
                             <li>
                                 <hr class="dropdown-divider">
