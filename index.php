@@ -4,14 +4,11 @@
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light">Template de formulaire de connexion</h1>
+            <?php if (!empty($_SESSION)) : ?>
+                <h2 class="fw-light">Bienvenue <?= $_SESSION['username'] ?> (<?= $_SESSION['role']; ?>)</h2>
+            <?php endif ?>
             <p class="lead text-muted">Sur ce projet, j'expliquerai comment établir une connexion à une base de données, mais aussi gérer les inscriptions et connexions des différents utilisateurs.</p>
             <?php if (!empty($_SESSION)) : ?>
-                <p>
-                    Username : <?= $_SESSION['username']; ?>
-                </p>
-                <p>
-                    Rôle : <?= $_SESSION['role']; ?>
-                </p>
 </section>
 <div class="album py-5 bg-light">
     <div class="container">
