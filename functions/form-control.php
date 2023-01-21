@@ -35,6 +35,7 @@ if (!empty($_GET['func'])) {
                     header('location: ../login.php');
                 } else {
                     // ? Si l'adresse mail est déjà utilisée, l'utilisateur est redirigé vers la page d'inscription
+                    // echo "<script>alert('mail')</script>";
                     header('location: ../register.php');
                 }
             } else {

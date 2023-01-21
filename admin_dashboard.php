@@ -66,7 +66,7 @@
                                     <?php endif ?>
 
                                     <li class="list-group-item">Sujet : <?= $message['sujet'] ?></li>
-                                    <li class="list-group-item">Message : <?= $message['msg'] ?></li>
+                                    <li class="list-group-item"><?= $message['msg'] ?></li>
                                     <li class="list-group-item">Envoyé le : <?= $message['dateEnvoi'] ?></li>
                                     <li class="list-group-item">
                                         <a href="mailto:<?= $message['mail']?>"><button type="button" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply-all-fill" viewBox="0 0 16 16">
