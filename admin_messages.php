@@ -61,18 +61,13 @@
                             $listMessages = $sth_listMessages->fetchAll(PDO::FETCH_ASSOC);
                             foreach ($listMessages as $message) : ?>
 
-
-
-
-
-
-
                                 <div class="col-lg-12 col-md-8 m-1">
                                     <ul class="list-group">
                                         <li class="list-group-item active <?php if ($message['isRegister'] == true) : ?>
                                             bg-primary" aria-current="true">Utilisateur : <?= $message['mail'] ?> | Inscrit</li>
                                     <?php else : ?>
                                         bg-secondary" aria-current="true">Utilisateur : <?= $message['mail'] ?> | Anonyme</li>
+                                        
                                     <?php endif ?>
 
                                     <li class="list-group-item">Sujet : <?= $message['sujet'] ?></li>

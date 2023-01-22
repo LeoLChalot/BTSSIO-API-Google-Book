@@ -19,6 +19,9 @@ try{
 session_start();
 $id_session = session_id();
 // var_dump($id_session);
+if(!empty($_SESSION['id'])){
+    $userID = $_SESSION['id'];
+}
 
 // if(!empty($_SESSION)){
 //     var_dump($_SESSION['role'], $_SESSION['username']);
