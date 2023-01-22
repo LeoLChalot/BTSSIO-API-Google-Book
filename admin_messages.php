@@ -1,7 +1,7 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
 <?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin') : ?>
-    <section class="py-5 text-left container">
+    <section class="text-left container">
         <form class="row g-3" action="" method="POST">
             <div class="col-auto">
                 <label for="inputPassword2" class="visually-hidden">Choix du filtre</label>
@@ -30,7 +30,7 @@
         <?php endif ?>
     </section>
 
-    <section class="py-5 text-left container">
+    <section class="text-left container">
         <div class="row py-lg-5">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
