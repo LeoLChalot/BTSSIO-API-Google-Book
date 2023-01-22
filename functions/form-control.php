@@ -73,9 +73,12 @@ if (!empty($_GET['func'])) {
             break;
 
         case 'sendMessage':
+            // ? Récupération des informationdeu formulaire de contact
             $mail = htmlspecialchars($_POST['mail']);
             $sujet = htmlspecialchars($_POST['sujet']);
             $message = nl2br(htmlspecialchars($_POST['message']));
+
+            // ? Récupération de la date pour dater le message
             $date = new DateTime();
             $date->setTimezone(new \DateTimeZone('Europe/Paris'));
             $dateJour = $date->format("d/m/Y");
@@ -85,15 +88,19 @@ if (!empty($_GET['func'])) {
                 $dateHeure
             );
             $date = implode(' - ', $dateGlobal);
+
             if (!empty($_SESSION)) {
+                // ? Si l'utilisateur est connecté, on affect le userID au message
                 $userId = $_SESSION['id'];
                 $isRegister = true;
             } else {
+                // ? Sinon on laisse le userID à NULL
                 $userId = null;
                 $isRegister = false;
             }
-            var_dump($mail, $sujet, $message, $isRegister, $userId);
+            // var_dump($mail, $sujet, $message, $isRegister, $userId);
 
+            // ? Enregistrement du message dans la table "messages"
             $sth_send = $connexion->prepare("INSERT INTO messages(`id_user`, `mail`, `isRegister`, `sujet`, `msg`, `dateEnvoi`)VALUES(:id_user, :mail, :isRegister, :sujet, :msg, :dateEnvoi)");
             $sth_send->bindParam(':id_user', $userId);
             $sth_send->bindParam(':mail', $mail);
