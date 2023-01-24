@@ -3,6 +3,8 @@
 if (!empty($_GET['func'])) {
     $function = $_GET['func'];
     switch ($function) {
+
+            // ! FT REGISTER
         case 'register':
             // ? Si la confirmation du MDP est confirmée, le script vérifie et éxecute les différentes requêtes
             if ($_POST['mdp'] == $_POST['mdp-repeat']) {
@@ -43,7 +45,8 @@ if (!empty($_GET['func'])) {
                 header('location: ../register.php');
             }
             break;
-
+            // ! END FT REGISTER
+            // ! FT LOGIN
         case 'login':
             // ? Récupération de la saisie login form
             $userMail = htmlspecialchars($_POST['mail']);
@@ -66,12 +69,14 @@ if (!empty($_GET['func'])) {
                 header('location: ../login.php');
             }
             break;
-
+            // ! END FT LOGIN
+            // ! FT LOGOUT
         case 'logout':
             session_destroy();
             header('location: ../index.php');
             break;
-
+            // ! END FT LOGOUT
+// ! FT SENDMESSAGE
         case 'sendMessage':
             // ? Récupération des informationdeu formulaire de contact
             $mail = htmlspecialchars($_POST['mail']);
@@ -88,7 +93,6 @@ if (!empty($_GET['func'])) {
                 $dateHeure
             );
             $date = implode(' - ', $dateGlobal);
-
             if (!empty($_SESSION)) {
                 // ? Si l'utilisateur est connecté, on affect le userID au message
                 $userId = $_SESSION['id'];
@@ -98,8 +102,6 @@ if (!empty($_GET['func'])) {
                 $userId = null;
                 $isRegister = false;
             }
-            // var_dump($mail, $sujet, $message, $isRegister, $userId);
-
             // ? Enregistrement du message dans la table "messages"
             $sth_send = $connexion->prepare("INSERT INTO messages(`id_user`, `mail`, `isRegister`, `sujet`, `msg`, `dateEnvoi`)VALUES(:id_user, :mail, :isRegister, :sujet, :msg, :dateEnvoi)");
             $sth_send->bindParam(':id_user', $userId);
@@ -109,16 +111,13 @@ if (!empty($_GET['func'])) {
             $sth_send->bindParam(':msg', $message);
             $sth_send->bindParam(':dateEnvoi', $date);
             $sth_send->execute();
-
             header('location: ../index.php');
-
-
-
             break;
 
         default:
             header('location: ../index.php');
             break;
+            // ! END FT SENDMESSAGE
     }
 } else {
     header('location: ../index.php');
