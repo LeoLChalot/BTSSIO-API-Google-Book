@@ -12,11 +12,6 @@ if (!empty($_GET['func'])) {
                 header('location: ../admin_dashboard.php');
                 break;
                 // ! END FT USERDELETE
-                // ! FT USEREDIT
-            case 'userEdit':
-                header('location: ../admin_dashboard.php?func=listUsers');
-                break;
-                // ! END FT USEREDIT
                 // ! FT MSGDELETE
             case 'msgDelete':
                 $msgID = $_GET['id'];

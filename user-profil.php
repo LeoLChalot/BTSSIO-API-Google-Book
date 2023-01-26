@@ -10,18 +10,17 @@ foreach ($sth_user as $user) :  ?>
 
     <section>
         <div class="container py-5">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card mb-4">
+            <div class="row d-flex justify-content-center gap-1">
+                <div class="col-lg-3 border border-0">
+                    <div class="card mb-4 border border-0">
                         <div class="card-body text-center">
-                            <img src="assets/img/img_uploaded/<?= $user['profil_picture'] ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                            <img src="assets/img/users/<?= $user['profil_picture'] ?>" alt="avatar" class="rounded img-fluid" style="width: 150px;">
                             <h5 class="my-3"><?= $user['prenom'] ?> <?= $user['nom'] ?></h5>
                             <p class="text-muted mb-1"><?= $user['profession'] ?></p>
-
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <div class="card mb-4">
                         <div class="card-body">
 
@@ -49,7 +48,7 @@ foreach ($sth_user as $user) :  ?>
                                     <p class="mb-0">Téléphone</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">(+33) <?= $user['telephone'] ?></p>
+                                    <p class="text-muted mb-0"><?= $user['telephone'] ?></p>
                                 </div>
                             </div>
                             <hr>

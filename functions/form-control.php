@@ -70,13 +70,83 @@ if (!empty($_GET['func'])) {
             }
             break;
             // ! END FT LOGIN
+            // ! FT USEREDIT
+        case 'userEdit':
+            // header('location: ../admin_dashboard.php?func=listUsers');
+            if (isset($_SESSION['id'])) {
+                if (
+                    !empty($_POST['nom'])
+                    && !empty($_POST['prenom'])
+                    && !empty($_POST['mail'])
+                    && !empty($_POST['telephone'])
+                    && !empty($_POST['adresse'])
+                    && !empty($_POST['profession'])
+                    && !empty($_FILES)
+                ) {
+                    $userId = $_SESSION['id'];
+                    $userNom = htmlspecialchars($_POST['nom']);
+                    $userPrenom = htmlspecialchars($_POST['prenom']);
+                    $userProfession = htmlspecialchars($_POST['profession']);
+                    $userMail = htmlspecialchars($_POST['mail']);
+                    $userTelephone = htmlspecialchars($_POST['telephone']);
+                    $userAdresse = htmlspecialchars($_POST['adresse']);
+
+
+                    $file = rand(1000, 100000) . "-" . $_FILES['profil_picture']['name'];
+                    $file_loc = $_FILES['profil_picture']['tmp_name'];
+                    $final_loc = "../assets/img/users/";
+                    $new_file_name = strtolower($file);
+                    $final_file = str_replace(' ', '-', $new_file_name);
+                    $final_file = str_replace('_', '-', $new_file_name);
+                    move_uploaded_file($file_loc, $final_loc . $final_file);
+
+                    $sth_edit = $connexion->prepare("UPDATE users SET 
+                    `nom` = :nom, 
+                    `prenom` = :prenom, 
+                    `profession` = :profession, 
+                    `mail` = :mail, 
+                    `telephone` = :telephone, 
+                    `adresse` = :adresse, 
+                    `profil_picture` = :profil_picture 
+                    WHERE `id` = :id
+                    ");
+
+                    $sth_edit->bindParam(':nom', $userNom);
+                    $sth_edit->bindParam(':prenom', $userPrenom);
+                    $sth_edit->bindParam(':profession', $userProfession);
+                    $sth_edit->bindParam(':mail', $userMail);
+                    $sth_edit->bindParam(':telephone', $userTelephone);
+                    $sth_edit->bindParam(':adresse', $userAdresse);
+                    $sth_edit->bindParam(':profil_picture', $final_file);
+                    $sth_edit->bindParam(':id', $userId);
+                    $sth_edit->execute();
+                    header('location: ../user-profil.php');
+                }
+                var_dump($userId, $userNom, $userPrenom, $userMail, $userTelephone, $userAdresse, $userProfession, $final_file);
+            } else {
+                header('location: ../index.php');
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            break;
+            // ! END FT USEREDIT
             // ! FT LOGOUT
         case 'logout':
             session_destroy();
             header('location: ../index.php');
             break;
             // ! END FT LOGOUT
-// ! FT SENDMESSAGE
+            // ! FT SENDMESSAGE
         case 'sendMessage':
             // ? Récupération des informationdeu formulaire de contact
             $mail = htmlspecialchars($_POST['mail']);
