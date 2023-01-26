@@ -5,12 +5,12 @@
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light">Template de formulaire de connexion</h1>
             <?php if (!empty($_SESSION)) : ?>
-                <h2 class="fw-light">Bienvenue <?= $_SESSION['username'] ?> (<?= $_SESSION['role']; ?>)</h2>
+                <h2 class="fw-light">Bienvenue <?= $_SESSION['username'] ?></h2>
             <?php endif ?>
             <p class="lead text-muted">Sur ce projet, j'expliquerai comment établir une connexion à une base de données, mais aussi gérer les inscriptions et connexions des différents utilisateurs.</p>
             <?php if (!empty($_SESSION)) : ?>
 </section>
-<div class="album py-5 bg-light">
+<div class="album py-5">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <!-- Début vignette Bootstrap -->
