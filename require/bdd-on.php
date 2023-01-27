@@ -5,13 +5,13 @@ $password = "";
 $dbname = "projet_account_connexion";
 
 // ? Etablissement de la connexion à la base de données
-try{
+try {
     $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $connexion->beginTransaction();
     // echo "connexion OK";
-// ? Echappement des erreurs et rollback en cas de requêtes râtées
-}catch(PDOException $e){
+    // ? Echappement des erreurs et rollback en cas de requêtes râtées
+} catch (PDOException $e) {
     $connexion->rollBack();
     echo "Erreur : " . $e->getMessage();
 }
@@ -19,10 +19,7 @@ try{
 session_start();
 $id_session = session_id();
 // var_dump($id_session);
-if(!empty($_SESSION['id'])){
+if (!empty($_SESSION['id'])) {
     $userID = $_SESSION['id'];
 }
 
-// if(!empty($_SESSION)){
-//     var_dump($_SESSION['role'], $_SESSION['username']);
-// }

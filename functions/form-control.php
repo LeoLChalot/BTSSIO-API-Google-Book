@@ -126,18 +126,6 @@ if (!empty($_GET['func'])) {
             } else {
                 header('location: ../index.php');
             }
-
-
-
-
-
-
-
-
-
-
-
-
             break;
             // ! END FT USEREDIT
             // ! FT LOGOUT

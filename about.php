@@ -15,7 +15,7 @@
 
             <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 ">
                 <div class="img-box">
-                    <img src="assets/img/Leo_LAROU-CHALOT.jpg" class="rounded  img-fluid" alt="about">
+                    <img src="assets/img/users/17131-leo-larou-chalot.jpg" class="rounded  img-fluid" alt="about">
                 </div>
             </div>
 
