@@ -37,7 +37,6 @@ if (!empty($_GET['func'])) {
                     header('location: ../login.php');
                 } else {
                     // ? Si l'adresse mail est déjà utilisée, l'utilisateur est redirigé vers la page d'inscription
-                    // echo "<script>alert('mail')</script>";
                     header('location: ../register.php');
                 }
             } else {
@@ -72,7 +71,6 @@ if (!empty($_GET['func'])) {
             // ! END FT LOGIN
             // ! FT USEREDIT
         case 'userEdit':
-            // header('location: ../admin_dashboard.php?func=listUsers');
             if (isset($_SESSION['id'])) {
                 if (
                     !empty($_POST['nom'])
@@ -90,7 +88,6 @@ if (!empty($_GET['func'])) {
                     $userMail = htmlspecialchars($_POST['mail']);
                     $userTelephone = htmlspecialchars($_POST['telephone']);
                     $userAdresse = htmlspecialchars($_POST['adresse']);
-
 
                     $file = rand(1000, 100000) . "-" . $_FILES['profil_picture']['name'];
                     $file_loc = $_FILES['profil_picture']['tmp_name'];
