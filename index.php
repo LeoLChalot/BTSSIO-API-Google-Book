@@ -13,51 +13,7 @@
 <div class="album py-5">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <!-- Début vignette Bootstrap -->
-            <div class="col">
-                <div class="card shadow-sm">
-                    <img src="assets/img/bootstrap.jpg" class="img-thumbnail" alt="vignette Bootstrap">
-                    <div class="card-body">
-                        <p class="card-text">Résumé de l'utilisation du framework Bootstrap 5.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="explain-bootstrap.php"><button type="button" class="btn btn-sm btn-outline-secondary">En savoir plus</button></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Fin vignette Bootstrap -->
-            <!-- Début vignette PHP -->
-            <div class="col">
-                <div class="card shadow-sm">
-                    <img src="assets/img/php.jpg" class="img-thumbnail" alt="vignette Bootstrap">
-                    <div class="card-body">
-                        <p class="card-text">Détail de la connexion réalisée avec PDO en PHP.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="explain-php.php"><button type="button" class="btn btn-sm btn-outline-secondary">En savoir plus</button></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Fin vignette PHP -->
-            <!-- Début vignette Users Account -->
-            <div class="col">
-                <div class="card shadow-sm">
-                    <img src="assets/img/connexion-user.jpg" class="img-thumbnail" alt="vignette Bootstrap">
-                    <div class="card-body">
-                        <p class="card-text">Explications sur les différents procédés de gestion.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="explain-user.php"><button type="button" class="btn btn-sm btn-outline-secondary">En savoir plus</button></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Fin vignette Users Account -->
+                <!-- Espace dédié aux vignettes  -->
         </div>
     </div>
 </div>

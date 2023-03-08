@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "projet_account_connexion";
+$dbname = "tp_libraire";
 
 // ? Etablissement de la connexion à la base de données
 try {
