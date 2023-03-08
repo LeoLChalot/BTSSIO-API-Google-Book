@@ -7,7 +7,7 @@
                 <div class="card border-0">
                     <div class="row g-0">
                         <div class="col-md-6 col-lg-5 d-none d-md-block border-0">
-                        <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" class="w-100 rounded-4 shadow-4" alt="" />
+                        <img src="assets/img/backgrounds/login.jpg" class="w-100 rounded-4 shadow-4" alt="" />
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">
@@ -29,7 +29,7 @@
                                         <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                     </div>
 
-                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="register.php" style="color: #393f81;">Register here</a></p>
+                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Pas encore de compte ? <a href="register.php" style="color: #393f81;">Register here</a></p>
                                 </form>
                             </div>
                         </div>

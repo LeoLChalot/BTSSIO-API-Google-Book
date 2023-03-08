@@ -37,10 +37,9 @@
                         </ul>
                     </div>
                 <?php endif ?>
-                <li><a href="http://localhost/bootstrap/form-connexion/" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a href="http://localhost/bootstrap/form-connexion/contact.php" class="nav-link px-2 link-dark">contact</a></li>
-                <li><a href="http://localhost/bootstrap/form-connexion/about.php" class="nav-link px-2 link-dark">A propos de moi</a></li>
-
+                <li><a href="http://localhost/librairie/form-connexion/" class="nav-link px-2 link-secondary">Home</a></li>
+                <li><a href="http://localhost/librairie/form-connexion/catalogue.php" class="nav-link px-2 link-dark">Catalogue</a></li>
+                <li><a href="http://localhost/librairie/form-connexion/contact.php" class="nav-link px-2 link-dark">contact</a></li>
             </ul>
 
             <div class="col-md-3 text-end">
@@ -48,13 +47,19 @@
                     <a href="login.php"><button type="button" class="btn btn-outline-primary me-2">Connexion</button></a>
                     <a href="register.php"><button type="button" class="btn btn-primary">Inscription</button></a>
                 <?php else : ?>
+                    <a href="user-collection.php"><button type="button" class="btn btn-success">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-half" viewBox="0 0 16 16">
+                                <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                            </svg>
+                            Collection
+                        </button></a>
                     <a href="user-profil.php"><button type="button" class="btn btn-success">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
-                            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"></path>
-                        </svg>
-                        Profil
-                    </button></a>
-                    <a href="http://localhost/bootstrap/form-connexion/functions/form-control.php?func=logout"><button type="button" class="btn btn-primary">Log Out</button></a>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+                                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"></path>
+                            </svg>
+                            Profil
+                        </button></a>
+                    <a href="http://localhost/librairie/form-connexion/functions/form-control.php?func=logout"><button type="button" class="btn btn-primary">Log Out</button></a>
                 <?php endif ?>
             </div>
         </header>

@@ -69,7 +69,7 @@
             </div>
 
             <div class="col-lg-5 mb-6 mb-lg-0">
-                <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" class="w-100 rounded-4 shadow-4" alt="" />
+                <img src="assets/img/backgrounds/register.jpg" class="w-100 rounded-4 shadow-4" alt="" />
             </div>
         </div>
     </div>
