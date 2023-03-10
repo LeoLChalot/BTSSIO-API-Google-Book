@@ -19,7 +19,7 @@
                 <img src="assets/img/backgrounds/catalogue.jpg" class="w-100 rounded-4 shadow-4" alt="" />
             </div>
             <div class="center col-lg-5 mb-5 mb-lg-0">
-                <div class="card cascading-right shadow-sm" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
+                <div class="card cascading-right shadow-sm w-100 center" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
                     <div class="card-body p-5 shadow-5 text-center">
                         <h2 class="fw-bold mb-5">Le catalogue !</h2>
                         <form class="mb-3" action="" method="GET">
@@ -46,7 +46,7 @@
                             $livres = $googleBook->getBooksByKeyword($title);
                             ?>
                             <?php for ($i = 0; $i < count($livres); $i++) : ?>
-                                <div class="book-card col-10 d-flex gap-5 m-4 p-4 border-bottom d-flex flex-row justify-content-center">
+                                <div class="book-card col-12 d-flex gap-5 m-4 p-4 border-bottom d-flex flex-row justify-content-center align-items-center">
                                     <?php if (isset($livres[$i]['image'])) : ?>
                                         <div class="book-img">
                                             <img src="<?= $livres[$i]['image'] ?>" alt="">

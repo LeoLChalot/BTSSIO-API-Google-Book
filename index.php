@@ -1,7 +1,7 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
+<section class="text-center container">
+    <div class="row">
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light">Librairie - Le mille feuilles</h1>
             <?php if (!empty($_SESSION)) : ?>

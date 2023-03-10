@@ -42,7 +42,7 @@
                 <li><a href="http://localhost/librairie/form-connexion/contact.php" class="nav-link px-2 link-dark">contact</a></li>
             </ul>
 
-            <div class="col-md-3 text-end">
+            <div class="col-md-5 text-end">
                 <?php if (empty($_SESSION)) : ?>
                     <a href="login.php"><button type="button" class="btn btn-outline-primary me-2">Connexion</button></a>
                     <a href="register.php"><button type="button" class="btn btn-primary">Inscription</button></a>

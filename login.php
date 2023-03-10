@@ -1,7 +1,7 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
 <section>
-    <div class="container py-5 border-0">
+    <div class="container border-0">
         <div class="row d-flex justify-content-center align-items-center h-100 border-0">
             <div class="col col-xl-10 border-0">
                 <div class="card border-0">
