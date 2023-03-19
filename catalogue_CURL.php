@@ -38,24 +38,31 @@
                 <?php
 
                 $title = $_GET['title'];
-                $curl = curl_init('http://books.google.com/books/feeds/volumes?q=' . $title . '&key=$AIzaSyAY1N3MiifNN02kmk2X6j64tk6WVP57kqQ');
-                // Options
+                $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr";
+                $curl = curl_init($url);
                 $options = array(
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-                    CURLOPT_TIMEOUT => 0
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_URL => $url,
+                    CURLOPT_SSL_VERIFYPEER => false
                 );
 
                 curl_setopt_array($curl, $options);
 
-                $data = json_decode(curl_exec($curl));
-                // $data = curl_exec($curl);
 
-                if ($data === false) {
-                    var_dump(curl_error($curl));
+
+                $resp = curl_exec($curl);
+
+                if ($e = curl_error($curl)) {
+                    var_dump($e);
                 } else {
-                    var_dump($data);
-                    
+                    $data = json_decode($resp, true);
+                    $results = $data["items"];
+                }
+
+                for ($i = 0; $i < count($results); $i++) {
+                    echo $results[$i]["volumeInfo"]["title"] . "<br>";
                 }
 
 

@@ -19,7 +19,7 @@ require_once(__DIR__ . '/require/bdd-on.php'); ?>
             <?php endif ?>
         </div>
         <div class=" col-lg-6 col-md-6 mx-auto">
-            <img id="img"src="assets/img/backgrounds/librairie_full.png" alt="image accueil" width="100%">
+            <img id="img" src="assets/img/backgrounds/librairie_full.png" alt="image accueil" width="100%">
         </div>
     </div>
 </section>
