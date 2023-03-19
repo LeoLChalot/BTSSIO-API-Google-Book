@@ -18,7 +18,7 @@
     <div class="container py-4">
         <div class="row g-0 align-items-center justify-content-center">
             <div class="col-lg-5 mb-6 mb-lg-0">
-                <img src="assets/img/backgrounds/catalogue.jpg" class="w-100 rounded-4 shadow-4" alt="" />
+                <img src="assets/img/backgrounds/librairie_3.png" class="w-100 rounded-4 shadow-4" alt="" />
             </div>
             <div class="center col-lg-5 mb-5 mb-lg-0">
                 <div class="card cascading-right shadow-sm w-100 center" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
