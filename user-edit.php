@@ -18,7 +18,7 @@ foreach ($sth_user as $user) :  ?>
                                 <img src="assets/img/users/<?= $user['profil_picture'] ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 200px;">
                                 <h5 class="my-3"><?= $user['prenom'] ?> <?= $user['nom'] ?></h5>
                                 <div class="input-group mb-2">
-                                    <input type="file" class="form-control" id="profil_picture" name="profil_picture" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+                                    <input type="file" class="form-control" id="profil_picture" name="profil_picture" aria-describedby="inputGroupFileAddon03" aria-label="Upload" value="<?= $user['profil_picture']?>">
                                 </div>
                             </div>
                         </div>

@@ -37,9 +37,9 @@
                         </ul>
                     </div>
                 <?php endif ?>
-                <li><a href="http://localhost/librairie/form-connexion/" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a href="http://localhost/librairie/form-connexion/catalogue.php" class="nav-link px-2 link-dark">Catalogue</a></li>
-                <li><a href="http://localhost/librairie/form-connexion/contact.php" class="nav-link px-2 link-dark">contact</a></li>
+                <li><a href="http://localhost/librairie/Librairie/" class="nav-link px-2 link-secondary">Home</a></li>
+                <li><a href="http://localhost/librairie/Librairie/catalogue.php" class="nav-link px-2 link-dark">Catalogue</a></li>
+                <li><a href="http://localhost/librairie/Librairie/contact.php" class="nav-link px-2 link-dark">contact</a></li>
             </ul>
 
             <div class="col-md-5 text-end">
@@ -59,7 +59,7 @@
                             </svg>
                             Profil
                         </button></a>
-                    <a href="http://localhost/librairie/form-connexion/functions/form-control.php?func=logout"><button type="button" class="btn btn-primary">Log Out</button></a>
+                    <a href="http://localhost/librairie/Librairie/functions/form-control.php?func=logout"><button type="button" class="btn btn-primary">Log Out</button></a>
                 <?php endif ?>
             </div>
         </header>

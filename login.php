@@ -1,13 +1,14 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
 <section>
+
     <div class="container border-0">
         <div class="row d-flex justify-content-center align-items-center h-100 border-0">
             <div class="col col-xl-10 border-0">
                 <div class="card border-0">
                     <div class="row g-0">
                         <div class="col-md-6 col-lg-5 d-none d-md-block border-0">
-                        <img src="assets/img/backgrounds/login.jpg" class="w-100 rounded-4 shadow-4" alt="" />
+                            <img src="assets/img/backgrounds/librairie_1.png" class="w-100 rounded-4 shadow-4" alt="" />
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">
