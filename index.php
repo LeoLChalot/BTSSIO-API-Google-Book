@@ -3,7 +3,7 @@ require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
 <section id="section-home" class="text-center container">
     <div class="row">
-        <div class="col-lg-6 col-md-6 mx-auto d-flex flex-column justify-content-center">
+        <div class=" col-lg-6 col-md-6 mx-auto d-flex flex-column justify-content-center">
             <h1 class="fw-light">Librairie - Le mille feuilles</h1>
             <?php if (!empty($_SESSION)) : ?>
                 <h2 class="fw-light">Bienvenue <?= $_SESSION['username'] ?></h2>
@@ -18,8 +18,8 @@ require_once(__DIR__ . '/require/bdd-on.php'); ?>
                 </p>
             <?php endif ?>
         </div>
-        <div class="col-lg-6 col-md-6 mx-auto">
-            <img id="img"src="assets/img/backgrounds/librairie_full.png" alt="image accueil" width="600px">
+        <div class=" col-lg-6 col-md-6 mx-auto">
+            <img id="img"src="assets/img/backgrounds/librairie_full.png" alt="image accueil" width="100%">
         </div>
     </div>
 </section>
