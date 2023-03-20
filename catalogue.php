@@ -1,6 +1,5 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
-<?php require_once(__DIR__ . '/require/header.php'); ?>
-<?php require_once(__DIR__ . '/class/BookSearcher.php');
+<?php require_once(__DIR__ . '/require/header.php');
 // define('APIKEY', '$AIzaSyAY1N3MiifNN02kmk2X6j64tk6WVP57kqQ');
 ?>
 <section class="text-center text-lg-start">

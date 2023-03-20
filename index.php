@@ -10,7 +10,7 @@ require_once(__DIR__ . '/require/bdd-on.php'); ?>
             <?php endif ?>
             <br>
             <p class="lead text-muted">La librairie "Le Mille Feuilles vous présente sa collection de livres tous plus incroyables les uns que les autres (sauf certains qui ne sont pas oufs)</p>
-            <p class="lead text-muted">Grâce à notre dématérialisation, nous vous proposons de naviguer au travers de notre <a href="http://localhost/librairie/form-connexion/catalogue.php" class="link-dark">Catalogue virtuel</a> pour pouvoir découvrir toujours plus de nouvelles références, mais que vous ne pourrez pas acheter (et paf!)</p>
+            <p class="lead text-muted">Grâce à notre dématérialisation, nous vous proposons de naviguer au travers de notre <a href="http://localhost/librairie/Librairie/catalogue.php" class="link-dark">Catalogue virtuel</a> pour pouvoir découvrir toujours plus de nouvelles références, mais que vous ne pourrez pas acheter (et paf!)</p>
             <p class="lead text-muted">Un système d'ajout et de suppression au sein de votre collection personnelle (uniquement réservée aux adhérants) vous permettra de conserver les références que vous souhaitez !</p>
             <?php if (!empty($_SESSION)) : ?>
                 <p>
