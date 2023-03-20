@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . '/../require/bdd-on.php');
+<?php require_once(__DIR__ . '/../class/User.php');
 
 if (!empty($_GET['func'])) {
     $function = $_GET['func'];
@@ -8,7 +8,6 @@ if (!empty($_GET['func'])) {
         case 'register':
             // ? Si la confirmation du MDP est confirmée, le script vérifie et éxecute les différentes requêtes
             if ($_POST['mdp'] == $_POST['mdp-repeat']) {
-
                 // ? Attribution des entrées utilisateurs
                 $userPrenom = htmlspecialchars($_POST['prenom']);
                 $userNom = htmlspecialchars($_POST['nom']);
@@ -24,6 +23,7 @@ if (!empty($_GET['func'])) {
 
                 if ($compare["COUNT(*)"] == 0) {
                     // ? Préparation d'une requête pour l'ajout du compte dans la BDD
+                    $user = new User($userPrenom, $userNom, $userMail, $userMDP);
                     $sth_register = $connexion->prepare("INSERT INTO users(nom, prenom, mail, mot_de_passe) 
                     VALUES(:nom, :prenom, :mail, :mot_de_passe)");
                     $sth_register->bindParam(':nom', $userNom);

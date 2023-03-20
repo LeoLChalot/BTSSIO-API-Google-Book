@@ -57,40 +57,40 @@
                     $data = json_decode($resp, true);
                     $results = $data["items"];
                 }
-            }
             ?>
-            <div class="center col-md-12 d-flex justify-content-center py-5 flex-wrap gap-4">
-                <?php for ($i = 0; $i < count($results); $i++) : ?>
-                    <div class="card d-flex flex-column align-items-center justify-content-between justify-content-between p-3" style="width: 18rem;">
-                        <?php if (isset($results[$i]["volumeInfo"]['imageLinks']['thumbnail'])) : ?>
-                            <img class="card-img-top" src="<?= $results[$i]["volumeInfo"]['imageLinks']['smallThumbnail'] ?>" style="width:150px;" alt="">
-                        <?php endif ?>
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $results[$i]["volumeInfo"]["title"] ?></h5>
-                            <?php if (isset($results[$i]["volumeInfo"]["subtitle"])) : ?>
-                                <p class="card-text"><?= $results[$i]["volumeInfo"]["subtitle"] ?></p>
+                <div class="center col-md-12 d-flex justify-content-center py-5 flex-wrap gap-4">
+                    <?php for ($i = 0; $i < count($results); $i++) : ?>
+                        <div class="card d-flex flex-column align-items-center justify-content-between justify-content-between p-3" style="width: 18rem;">
+                            <?php if (isset($results[$i]["volumeInfo"]['imageLinks']['thumbnail'])) : ?>
+                                <img class="card-img-top" src="<?= $results[$i]["volumeInfo"]['imageLinks']['smallThumbnail'] ?>" style="width:150px;" alt="">
                             <?php endif ?>
-                            <?php if (isset($results[$i]["volumeInfo"]["authors"])) : ?>
-                                <p>Auteur(s) :</p>
-                                <ul>
-                                    <?php foreach ($results[$i]["volumeInfo"]["authors"] as $author) : ?>
-                                        <li><?= $author ?></li>
-                                    <?php endforeach ?>
-                                </ul>
-                            <?php endif ?>
-                            <?php if (isset($results[$i]["volumeInfo"]["description"])) : ?>
-                                <details>
-                                    <summary>Details</summary>
-                                    <p class="text-justify"><?= $results[$i]["volumeInfo"]["description"]; ?></p>
-                                </details>
-                            <?php endif ?>
-                            <div class="container">
-                                <a href="#" class="btn btn-primary">Ajouter !</a>
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $results[$i]["volumeInfo"]["title"] ?></h5>
+                                <?php if (isset($results[$i]["volumeInfo"]["subtitle"])) : ?>
+                                    <p class="card-text"><?= $results[$i]["volumeInfo"]["subtitle"] ?></p>
+                                <?php endif ?>
+                                <?php if (isset($results[$i]["volumeInfo"]["authors"])) : ?>
+                                    <p>Auteur(s) :</p>
+                                    <ul>
+                                        <?php foreach ($results[$i]["volumeInfo"]["authors"] as $author) : ?>
+                                            <li><?= $author ?></li>
+                                        <?php endforeach ?>
+                                    </ul>
+                                <?php endif ?>
+                                <?php if (isset($results[$i]["volumeInfo"]["description"])) : ?>
+                                    <details>
+                                        <summary>Details</summary>
+                                        <p class="text-justify"><?= $results[$i]["volumeInfo"]["description"]; ?></p>
+                                    </details>
+                                <?php endif ?>
+                                <div class="container">
+                                    <a href="#" class="btn btn-primary">Ajouter !</a>
+                                </div>
+
                             </div>
-                            
                         </div>
-                    </div>
-                <?php endfor ?>
+                    <?php endfor ?>
+                <?php } ?>
 
 
                 <?php
@@ -98,7 +98,7 @@
                     curl_close($curl);
                 } ?>
 
-            </div>
+                </div>
         </div>
 
 </section>
