@@ -24,7 +24,7 @@
         CURLOPT_HTTPHEADER => array('Content-type: application/json'),
         CURLOPT_TIMEOUT => 0,
         CURLOPT_URL => $url,
-        CURLOPT_SSL_VERIFYPEER => false
+        CURLOPT_CAINFO => __DIR__ . '/assets/Certificat/GTS Root R1.crt'
     );
 
     curl_setopt_array($curl, $options);
@@ -38,14 +38,12 @@
     } else {
         $data = json_decode($resp, true);
         $results = $data["items"];
-        // var_dump($results);
-        // var_dump($results['imageLinks']);
+        var_dump($results);
+        var_dump($results['imageLinks']);
     }
 
     for ($i = 0; $i < count($results); $i++) {
-        // https://books.google.fr/books?id=pCJWX7ETkBwC&printsec=frontcover&hl=fr&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false
         $booksId = $results[$i]['id'];
-        // echo '<img src="https://books.google.fr/books/content?id='.$booksId.'&hl=fr&pg=PP1&img=1&zoom=3&sig=ACfU3U26P-JNVJpPXUqcOMz2gFyFIwOFzg&w=1280"';
         if (isset($results[$i]["volumeInfo"]["title"])) {
             echo "Titre : " . $results[$i]["volumeInfo"]["title"] . "<br>";
         }
@@ -61,13 +59,13 @@
                 echo $author . ", ";
             }
         }
-        if(isset($results[$i]["volumeInfo"]['imageLinks'])):?>
-            <?php 
+        if (isset($results[$i]["volumeInfo"]['imageLinks'])) : ?>
+            <?php
             // var_dump($results[$i]["volumeInfo"]['imageLinks']);
             $imgLink = $results[$i]["volumeInfo"]['imageLinks']['smallThumbnail']; ?>
             <img src="<?= $imgLink ?>" alt="">
         <?php endif ?>
-        <?php echo "<br><br>";
+    <?php echo "<br><br>";
     }
 
 
