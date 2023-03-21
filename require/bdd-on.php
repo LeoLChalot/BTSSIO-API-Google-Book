@@ -1,12 +1,12 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tp_libraire";
+define("SERVERNAME", "localhost");
+define("USERNAME", "root");
+define("PASSWORD", "");
+define("DBNAME", "tp_libraire");
 
 // ? Etablissement de la connexion à la base de données
 try {
-    $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $connexion = new PDO("mysql:host=".SERVERNAME.";dbname=".DBNAME."", USERNAME, PASSWORD);
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $connexion->beginTransaction();
     // echo "connexion OK";

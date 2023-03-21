@@ -2,7 +2,7 @@
 require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
 <section id="section-home" class="text-center container">
-    <div class="row">
+    <div class="row p-4">
         <div class=" col-lg-6 col-md-6 mx-auto d-flex flex-column justify-content-center">
             <h1 class="fw-light">Librairie - Le mille feuilles</h1>
             <?php if (!empty($_SESSION)) : ?>

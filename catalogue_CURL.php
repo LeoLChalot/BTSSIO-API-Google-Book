@@ -60,7 +60,7 @@
             ?>
                 <div class="center col-md-12 d-flex justify-content-center py-5 flex-wrap gap-4">
                     <?php for ($i = 0; $i < count($results); $i++) : ?>
-                        <div class="card d-flex flex-column align-items-center justify-content-between justify-content-between p-3" style="width: 18rem;">
+                        <div class="card d-flex flex-column align-items-center justify-content-between p-3" style="width: 18rem;">
                             <?php if (isset($results[$i]["volumeInfo"]['imageLinks']['thumbnail'])) : ?>
                                 <img class="card-img-top" src="<?= $results[$i]["volumeInfo"]['imageLinks']['smallThumbnail'] ?>" style="width:150px;" alt="">
                             <?php endif ?>

@@ -6,41 +6,25 @@ if (!empty($_GET['func'])) {
 
             // ! FT REGISTER
         case 'register':
-            // ? Si la confirmation du MDP est confirmée, le script vérifie et éxecute les différentes requêtes
             if ($_POST['mdp'] == $_POST['mdp-repeat']) {
-                // ? Attribution des entrées utilisateurs
                 $userPrenom = htmlspecialchars($_POST['prenom']);
                 $userNom = htmlspecialchars($_POST['nom']);
                 $userMail = htmlspecialchars($_POST['mail']);
                 $userMDP = htmlspecialchars($_POST['mdp']);
-                // ! Hashage du MDP
                 $userMDP = password_hash($userMDP, PASSWORD_DEFAULT);
 
-                // ? Préparation d'une requête de vérification de compte éxistant ?
+                // Vérification du mail
                 $sth_compare = $connexion->prepare("SELECT COUNT(*) FROM users WHERE mail = '$userMail'");
                 $sth_compare->execute();
                 $compare = $sth_compare->fetch(PDO::FETCH_ASSOC);
 
                 if ($compare["COUNT(*)"] == 0) {
-                    // ? Préparation d'une requête pour l'ajout du compte dans la BDD
-                    $user = new User($userPrenom, $userNom, $userMail, $userMDP);
-                    $sth_register = $connexion->prepare("INSERT INTO users(nom, prenom, mail, mot_de_passe) 
-                    VALUES(:nom, :prenom, :mail, :mot_de_passe)");
-                    $sth_register->bindParam(':nom', $userNom);
-                    $sth_register->bindParam(':prenom', $userPrenom);
-                    $sth_register->bindParam(':mail', $userMail);
-                    $sth_register->bindParam(':mot_de_passe', $userMDP);
-                    $sth_register->execute();
-                    echo "Execution OK";
-
-                    // ? Si tout se passe bien, l'utilisateur est redirigé vers la page de connexion
-                    header('location: ../login.php');
+                    $user = new User($userPrenom, $userNom, $userMail, $userMDP, "user");
+                    $user->inscription();
                 } else {
-                    // ? Si l'adresse mail est déjà utilisée, l'utilisateur est redirigé vers la page d'inscription
                     header('location: ../register.php');
                 }
             } else {
-                // ? Si le mot de passe n'est pas correctement saisi, l'utilisateur est redirigé vers la page d'inscription
                 header('location: ../register.php');
             }
             break;
@@ -119,7 +103,7 @@ if (!empty($_GET['func'])) {
                     $sth_edit->execute();
                     header('location: ../user-profil.php');
                 }
-                var_dump($userId, $userNom, $userPrenom, $userMail, $userTelephone, $userAdresse, $userProfession, $final_file);
+                // var_dump($userId, $userNom, $userPrenom, $userMail, $userTelephone, $userAdresse, $userProfession, $final_file);
             } else {
                 header('location: ../index.php');
             }
@@ -127,6 +111,8 @@ if (!empty($_GET['func'])) {
             // ! END FT USEREDIT
             // ! FT LOGOUT
         case 'logout':
+            // $user = new User($userPrenom, $userNom, $userMail, $userMDP, "user");
+            // $user->deconnexion();
             session_destroy();
             header('location: ../index.php');
             break;
