@@ -39,7 +39,7 @@
         $data = json_decode($resp, true);
         $results = $data["items"];
         var_dump($results);
-        var_dump($results['imageLinks']);
+        var_dump($results[0]['volumeInfo']['imageLinks']);
     }
 
     for ($i = 0; $i < count($results); $i++) {
