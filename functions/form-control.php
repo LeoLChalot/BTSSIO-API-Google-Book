@@ -1,9 +1,9 @@
 <?php require_once(__DIR__ . '/../class/User.php');
 
 if (!empty($_GET['func'])) {
+
     $function = $_GET['func'];
     switch ($function) {
-
             // ! FT REGISTER
         case 'register':
             if ($_POST['mdp'] == $_POST['mdp-repeat']) {
@@ -153,6 +153,8 @@ if (!empty($_GET['func'])) {
             $sth_send->bindParam(':dateEnvoi', $date);
             $sth_send->execute();
             header('location: ../index.php');
+            break;
+        case 'userEdit':
             break;
 
         default:

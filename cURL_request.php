@@ -13,10 +13,6 @@
     $key = '$AIzaSyAY1N3MiifNN02kmk2X6j64tk6WVP57kqQ';
     $title = "Javascript";
 
-    /*
-*   "https://www.googleapis.com/books/v1/volumes?q=Harry+Potter" -H "Content-Type: application/json" -G -d "printType=books"
-*/
-
     $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr";
     $curl = curl_init($url);
     $options = array(
@@ -38,8 +34,8 @@
     } else {
         $data = json_decode($resp, true);
         $results = $data["items"];
-        var_dump($results);
-        var_dump($results[0]['volumeInfo']['imageLinks']);
+        // var_dump($results);
+        // var_dump($results[0]['volumeInfo']['imageLinks']);
     }
 
     for ($i = 0; $i < count($results); $i++) {

@@ -15,22 +15,28 @@
 
                                 <form action="functions/form-control.php?func=login" method="post">
 
+
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Connexion à votre compte</h5>
                                     <div class="form-outline mb-4">
                                         <input type="email" id="mail" name="mail" class="form-control form-control-lg" />
                                         <label class="form-label" for="mail">Email</label>
                                     </div>
 
+
                                     <div class="form-outline mb-4">
                                         <input type="password" id="mdp" name="mdp" class="form-control form-control-lg" />
                                         <label class="form-label" for="mdp">Password</label>
                                     </div>
 
+
                                     <div class="pt-1 mb-4">
                                         <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                     </div>
 
+
                                     <p class="mb-5 pb-lg-2" style="color: #393f81;">Pas encore de compte ? <a href="register.php" style="color: #393f81;">Register here</a></p>
+
+                                    
                                 </form>
                             </div>
                         </div>
