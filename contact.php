@@ -10,11 +10,11 @@
             <div class="center col-lg-5 mb-5 mb-lg-0">
                 <div class="card cascading-right shadow-sm" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
                     <div class="card-body p-5 shadow-5 text-center">
-                        <h2 class="fw-bold mb-5">Laissez-moi un message !</h2>
-                        <?php if (!empty($_SESSION)) : ?>
-                            <form action="functions/form-control.php?func=sendMessage&usrid=<?= $_SESSION['id'] ?>" method="post">
+                        <h2 class="fw-bold mb-5">Laissez-moi un message</h2>
+                        <?php if (!empty($_SESSION['user'])) : ?>
+                            <form action="functions/form-control.php?func=sendMessage&usrid=<?= $_SESSION['user']->getId(); ?>" method="post">
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="mail" name="mail" class="form-control" require value="<?= $_SESSION['mail'] ?>" />
+                                    <input type="text" id="mail" name="mail" class="form-control" require value="<?= $_SESSION['user']->getMail(); ?>" />
                                 </div>
                             <?php else : ?>
                                 <form action="functions/form-control.php?func=sendMessage" method="post">

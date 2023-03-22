@@ -1,7 +1,8 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
 <?php
-$sth_display = $connexion->prepare("SELECT * FROM users WHERE id = $userID");
+$id = $_SESSION['user']->getId();
+$sth_display = $connexion->prepare("SELECT * FROM users WHERE id = $id");
 $sth_display->execute();
 $sth_user = $sth_display->fetchAll(PDO::FETCH_ASSOC);
 ?>

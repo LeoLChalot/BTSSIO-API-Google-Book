@@ -1,4 +1,5 @@
 <?php
+include 'C:\wamp64\www\librairie\Librairie\class\User.php';
 define("SERVERNAME", "localhost");
 define("USERNAME", "root");
 define("PASSWORD", "");

@@ -1,7 +1,7 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
 <?php
-$sth_display = $connexion->prepare("SELECT * FROM users WHERE id = $userID");
+$sth_display = $connexion->prepare("SELECT * FROM users WHERE id =" . $_SESSION['user']->getId() ."");
 $sth_display->execute();
 $sth_user = $sth_display->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -23,8 +23,6 @@ foreach ($sth_user as $user) :  ?>
                 <div class="col-lg-6">
                     <div class="card mb-4">
                         <div class="card-body">
-
-                            <!-- <?php var_dump($user); ?> -->
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0">Nom</p>

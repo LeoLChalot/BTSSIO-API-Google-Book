@@ -36,12 +36,12 @@
 </style>
 <section class="text-center text-lg-start">
     <div class="container py-4">
-        <div class="row g-0 align-items-center justify-content-center">
+        <div class="row w-100 d-flex flex-row align-items-center justify-content-center">
             <div class="col-lg-5 mb-6 mb-lg-0">
                 <img src="assets/img/backgrounds/librairie_3.png" class="w-100 rounded-4 shadow-4" alt="" />
             </div>
-            <div class="center col-lg-5 mb-5 mb-lg-0">
-                <div class="card cascading-right shadow-sm w-100 center" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
+            <div class="center d-flex col-md-6 mb-5 mb-lg-0">
+                <div class="card col-md-12 shadow-sm w-100 center" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
                     <div class="card-body p-5 shadow-5 text-center">
                         <h2 class="fw-bold mb-5">Le catalogue !</h2>
                         <form class="mb-3" action="" method="GET">
@@ -79,6 +79,7 @@
                     $data = json_decode($resp, true);
                     $results = $data["items"];
                 }
+                
                 ?>
 
                 <div class="center col-md-12 d-flex justify-content-center py-5 flex-wrap gap-4">
@@ -143,11 +144,7 @@
                     </ul>
                 </nav>
 
-
-
             <?php endif ?>
-
-
             <?php
             if (isset($curl)) {
                 curl_close($curl);

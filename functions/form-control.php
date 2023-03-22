@@ -1,26 +1,23 @@
-<?php require_once(__DIR__ . '/../class/User.php');
-
+<?php
+include(__DIR__ . '/../require/bdd-on.php');
+// include(__DIR__ . '/../class/User.php');
+include 'ft.php';
 if (!empty($_GET['func'])) {
 
     $function = $_GET['func'];
     switch ($function) {
-            // ! FT REGISTER
+
         case 'register':
             if ($_POST['mdp'] == $_POST['mdp-repeat']) {
-                $userPrenom = htmlspecialchars($_POST['prenom']);
-                $userNom = htmlspecialchars($_POST['nom']);
-                $userMail = htmlspecialchars($_POST['mail']);
-                $userMDP = htmlspecialchars($_POST['mdp']);
+                $userPrenom = str_verify($_POST['prenom']);
+                $userNom = str_verify($_POST['nom']);
+                $userMail = str_verify($_POST['mail']);
+                $userMDP = str_verify($_POST['mdp']);
                 $userMDP = password_hash($userMDP, PASSWORD_DEFAULT);
-
-                // Vérification du mail
-                $sth_compare = $connexion->prepare("SELECT COUNT(*) FROM users WHERE mail = '$userMail'");
-                $sth_compare->execute();
-                $compare = $sth_compare->fetch(PDO::FETCH_ASSOC);
-
-                if ($compare["COUNT(*)"] == 0) {
+                if (mail_verify($userMail) == 0) {
                     $user = new User($userPrenom, $userNom, $userMail, $userMDP, "user");
-                    $user->inscription();
+                    $_SESSION['user'] = $user;
+                    $_SESSION['user']->inscription();
                 } else {
                     header('location: ../register.php');
                 }
@@ -28,34 +25,20 @@ if (!empty($_GET['func'])) {
                 header('location: ../register.php');
             }
             break;
-            // ! END FT REGISTER
-            // ! FT LOGIN
+
         case 'login':
-            // ? Récupération de la saisie login form
-            $userMail = htmlspecialchars($_POST['mail']);
-            $userMDP = htmlspecialchars($_POST['mdp']);
-
-            // ? Préparation d'une requête de recherche d'identifiants
-            $sth_compare = $connexion->prepare("SELECT * FROM users WHERE mail = '$userMail'");
-            $sth_compare->execute();
-            $userLogin = $sth_compare->fetch(PDO::FETCH_ASSOC);
-
-            // ? Si la requête renvoie un resultat... et que le mot de passe correspond, on redirige l'utilisateur vers la page d'accueil
-            if ((!empty($userLogin)) && (password_verify($userMDP, $userLogin['mot_de_passe']))) {
-                $_SESSION['role'] = $userLogin['role'];
-                $_SESSION['id'] = $userLogin['id'];
-                $_SESSION['username'] = $userLogin['prenom'] . " " . $userLogin['nom'];
-                $_SESSION['mail'] = $userLogin['mail'];
-                header('location: ../index.php');
-            } else {
-                // ? Si les identifiants ne correspondent pas, on redirige l'utilisateur vers le formulaire de connexion
-                header('location: ../login.php');
-            }
+            $userMail = str_verify($_POST['mail']);
+            $userMDP = str_verify($_POST['mdp']);
+            $user = new User('', '', $userMail, $userMDP, '');
+            $user->connexion();
+            $_SESSION['user'] = $user;
+            var_dump($_SESSION['user']);
+            // die();
             break;
-            // ! END FT LOGIN
-            // ! FT USEREDIT
+
         case 'userEdit':
-            if (isset($_SESSION['id'])) {
+            if (isset($_SESSION['user'])) {
+                $userId = $_SESSION['user']->getId();
                 if (
                     !empty($_POST['nom'])
                     && !empty($_POST['prenom'])
@@ -65,13 +48,13 @@ if (!empty($_GET['func'])) {
                     && !empty($_POST['profession'])
                     && !empty($_FILES)
                 ) {
-                    $userId = $_SESSION['id'];
-                    $userNom = htmlspecialchars($_POST['nom']);
-                    $userPrenom = htmlspecialchars($_POST['prenom']);
-                    $userProfession = htmlspecialchars($_POST['profession']);
-                    $userMail = htmlspecialchars($_POST['mail']);
-                    $userTelephone = htmlspecialchars($_POST['telephone']);
-                    $userAdresse = htmlspecialchars($_POST['adresse']);
+
+                    $userNom = str_verify($_POST['nom']);
+                    $userPrenom = str_verify($_POST['prenom']);
+                    $userProfession = str_verify($_POST['profession']);
+                    $userMail = str_verify($_POST['mail']);
+                    $userTelephone = str_verify($_POST['telephone']);
+                    $userAdresse = str_verify($_POST['adresse']);
 
                     $file = rand(1000, 100000) . "-" . $_FILES['profil_picture']['name'];
                     $file_loc = $_FILES['profil_picture']['tmp_name'];
@@ -103,26 +86,19 @@ if (!empty($_GET['func'])) {
                     $sth_edit->execute();
                     header('location: ../user-profil.php');
                 }
-                // var_dump($userId, $userNom, $userPrenom, $userMail, $userTelephone, $userAdresse, $userProfession, $final_file);
             } else {
                 header('location: ../index.php');
             }
             break;
-            // ! END FT USEREDIT
-            // ! FT LOGOUT
+
         case 'logout':
-            // $user = new User($userPrenom, $userNom, $userMail, $userMDP, "user");
-            // $user->deconnexion();
-            session_destroy();
-            header('location: ../index.php');
+            $_SESSION['user']->deconnexion();
             break;
-            // ! END FT LOGOUT
-            // ! FT SENDMESSAGE
         case 'sendMessage':
             // ? Récupération des informationdeu formulaire de contact
-            $mail = htmlspecialchars($_POST['mail']);
-            $sujet = htmlspecialchars($_POST['sujet']);
-            $message = nl2br(htmlspecialchars($_POST['message']));
+            $mail = str_verify($_POST['mail']);
+            $sujet = str_verify($_POST['sujet']);
+            $message = nl2br(str_verify($_POST['message']));
 
             // ? Récupération de la date pour dater le message
             $date = new DateTime();
@@ -154,13 +130,12 @@ if (!empty($_GET['func'])) {
             $sth_send->execute();
             header('location: ../index.php');
             break;
-        case 'userEdit':
+        case 'addBook':
             break;
 
         default:
             header('location: ../index.php');
             break;
-            // ! END FT SENDMESSAGE
     }
 } else {
     header('location: ../index.php');

@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__ . '/require/bdd-on.php'); ?>
-<?php require_once(__DIR__ . '/require/header.php'); ?>
+require_once(__DIR__ . '/require/bdd-on.php');
+require_once(__DIR__ . '/require/header.php'); ?>
 <section id="section-home" class="text-center container">
     <div class="row p-4">
         <div class=" col-lg-6 col-md-6 mx-auto d-flex flex-column justify-content-center">
             <h1 class="fw-light">Librairie - Le mille feuilles</h1>
-            <?php if (!empty($_SESSION)) : ?>
-                <h2 class="fw-light">Bienvenue <?= $_SESSION['username'] ?></h2>
+            <?php if (!empty($_SESSION['user'])) : ?>
+                <h2 class="fw-light">Bienvenue <?= $_SESSION['user']->getUsername() ?></h2>
             <?php endif ?>
             <br>
             <p class="lead text-muted">La librairie "Le Mille Feuilles vous présente sa collection de livres tous plus incroyables les uns que les autres (sauf certains qui ne sont pas oufs)</p>

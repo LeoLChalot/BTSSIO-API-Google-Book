@@ -1,6 +1,6 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
-<?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin') : ?>
+<?php if (!empty($_SESSION) && $_SESSION['user']->getRole() == 'admin') : ?>
     <section class="py-5 text-left container">
 
         <div class="row py-lg-5">
