@@ -1,8 +1,16 @@
 <?php
-
 class User
 {
-    private $id, $prenom, $nom, $mail, $pwd, $role;
+    private ?string $id;
+    private ?string $prenom;
+    private ?string $nom;
+    private ?string $mail;
+    private ?string $pwd;
+    private ?string $role;
+    private ?string $profession;
+    private ?string $telephone;
+    private ?string $adresse;
+    private ?string $profile_picture;
 
     public function __construct(?string $prenom, ?string $nom, ?string $mail, ?string $pwd)
     {
@@ -13,6 +21,7 @@ class User
         $this->role = "user";
     }
 
+    // * ACTIONS
     public function PDO_connexion()
     {
         try {
@@ -27,41 +36,22 @@ class User
     }
     public function inscription(): void
     {
-        // $connexion = PDO_connexion();
-        try {
-            $connexion = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME . "", USERNAME, PASSWORD);
-            $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $connexion->beginTransaction();
-        } catch (PDOException $e) {
-            $connexion->rollBack();
-            echo "Erreur : " . $e->getMessage();
-        }
+        $connexion = $this->PDO_connexion();
         $sth_register = $connexion->prepare("INSERT INTO users(nom, prenom, mail, mot_de_passe) VALUES(:nom, :prenom, :mail, :mot_de_passe)");
         $sth_register->bindParam(':nom', $this->prenom);
         $sth_register->bindParam(':prenom', $this->nom);
         $sth_register->bindParam(':mail', $this->mail);
         $sth_register->bindParam(':mot_de_passe', $this->pwd);
         $sth_register->execute();
-        $sth_register = $connexion->prepare("SELECT id FROM users WHERE mail = '$this->mail'");
-        $sth_register->execute();
-        $id = $sth_register->fetch(PDO::FETCH_ASSOC);
-        $this->id = $id[0];
-        
+        $sth_register = $connexion->prepare("SELECT id FROM users WHERE mail = ?");
+        $sth_register->execute([$this->mail]);
+        $user = $sth_register->fetch();
+        $this->id = $user[0];
         header('location: ../index.php');
     }
     public function connexion(): void
     {
-        // $connexion = PDO_connexion();
-        try {
-            $connexion = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME . "", USERNAME, PASSWORD);
-            $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $connexion->beginTransaction();
-            // echo "connexion OK";
-            // ? Echappement des erreurs et rollback en cas de requêtes râtées
-        } catch (PDOException $e) {
-            $connexion->rollBack();
-            echo "Erreur : " . $e->getMessage();
-        }
+        $connexion = $this->PDO_connexion();
         $sth_compare = $connexion->prepare("SELECT * FROM users WHERE mail = '$this->mail'");
         $sth_compare->execute();
         $userLogin = $sth_compare->fetch(PDO::FETCH_ASSOC);
@@ -81,29 +71,19 @@ class User
         session_destroy();
         header('location: ../index.php');
     }
-    public function getId(): string
+
+    // * GETTERS
+    public function getId()
     {
         return $this->id;
     }
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
-    }
-    public function getLastName(): string
+    public function getNom(): string
     {
         return $this->nom;
     }
-    public function setLastName(?string $nom): void
-    {
-        $this->nom = $nom;
-    }
-    public function getFirstName(): string
+    public function getPrenom(): string
     {
         return $this->prenom;
-    }
-    public function setFirstName(?string $prenom): void
-    {
-        $this->prenom = $prenom;
     }
     public function getUsername(): string
     {
@@ -113,12 +93,86 @@ class User
     {
         return $this->mail;
     }
-    public function setMail(?string $mail): void
-    {
-        $this->mail = $mail;
-    }
     public function getRole(): string
     {
         return $this->role;
+    }
+    public function getProfession(): string
+    {
+        return $this->profession;
+    }
+    public function getTelephone(): string
+    {
+        return $this->telephone;
+    }
+    public function getAdresse(): string
+    {
+        return $this->adresse;
+    }
+    public function getPhoto(): string
+    {
+        return $this->profile_picture;
+    }
+
+    // * SETTERS
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+    public function setNom(?string $nom): void
+    {
+        $this->nom = $nom;
+        $connexion = $this->PDO_connexion();
+        $sth_edit = $connexion->prepare("UPDATE users SET `nom` = :nom WHERE `id` = $this->id");
+        $sth_edit->bindParam(':nom', $this->nom);
+        $sth_edit->execute();
+    }
+    public function setPrenom(?string $prenom): void
+    {
+        $this->prenom = $prenom;
+        $connexion = $this->PDO_connexion();
+        $sth_edit = $connexion->prepare("UPDATE users SET `prenom` = :prenom WHERE `id` = $this->id");
+        $sth_edit->bindParam(':prenom', $this->prenom);
+        $sth_edit->execute();
+    }
+    public function setMail(?string $mail): void
+    {
+        $this->mail = $mail;
+        $connexion = $this->PDO_connexion();
+        $sth_edit = $connexion->prepare("UPDATE users SET `mail` = :mail WHERE `id` = $this->id");
+        $sth_edit->bindParam(':mail', $this->mail);
+        $sth_edit->execute();
+    }
+    public function setProfession($profession)
+    {
+        $this->profession = $profession;
+        $connexion = $this->PDO_connexion();
+        $sth_edit = $connexion->prepare("UPDATE users SET `profession` = :profession WHERE `id` = $this->id");
+        $sth_edit->bindParam(':profession', $this->profession);
+        $sth_edit->execute();
+    }
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+        $connexion = $this->PDO_connexion();
+        $sth_edit = $connexion->prepare("UPDATE users SET `telephone` = :telephone WHERE `id` = $this->id");
+        $sth_edit->bindParam(':telephone', $this->telephone);
+        $sth_edit->execute();
+    }
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+        $connexion = $this->PDO_connexion();
+        $sth_edit = $connexion->prepare("UPDATE users SET `adresse` = :adresse WHERE `id` = $this->id");
+        $sth_edit->bindParam(':adresse', $this->adresse);
+        $sth_edit->execute();
+    }
+    public function setPhoto($profile_picture)
+    {
+        $this->profile_picture = $profile_picture;
+        $connexion = $this->PDO_connexion();
+        $sth_edit = $connexion->prepare("UPDATE users SET `profil_picture` = :profil_picture WHERE `id` = $this->id");
+        $sth_edit->bindParam(':profil_picture', $this->profile_picture);
+        $sth_edit->execute();
     }
 }

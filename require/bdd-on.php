@@ -10,7 +10,7 @@ try {
     $connexion = new PDO("mysql:host=".SERVERNAME.";dbname=".DBNAME."", USERNAME, PASSWORD);
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $connexion->beginTransaction();
-    // echo "connexion OK";
+
     // ? Echappement des erreurs et rollback en cas de requêtes râtées
 } catch (PDOException $e) {
     $connexion->rollBack();

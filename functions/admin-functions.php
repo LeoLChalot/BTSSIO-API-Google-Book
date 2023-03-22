@@ -2,24 +2,22 @@
 
 if (!empty($_GET['func'])) {
     $function = $_GET['func'];
-    if (!empty($_SESSION) && ($_SESSION['role'] == 'admin')) {
+    if (($_SESSION['user']->getRole() == 'admin')) {
         switch ($function) {
-                // ! FT USERDELETE
             case 'userDelete':
                 $userID = $_GET['id'];
+                var_dump($userID);
+                // die();
                 $sth_userDelete = $connexion->prepare("DELETE FROM users WHERE id = $userID");
                 $sth_userDelete->execute();
                 header('location: ../admin_dashboard.php');
                 break;
-                // ! END FT USERDELETE
-                // ! FT MSGDELETE
             case 'msgDelete':
                 $msgID = $_GET['id'];
                 $sth_userDelete = $connexion->prepare("DELETE FROM messages WHERE id = $msgID");
                 $sth_userDelete->execute();
                 header('location: ../admin_dashboard.php');
                 break;
-                // ! END FT MSGDELETE
             default:
                 header('location: ../index.php');
                 break;

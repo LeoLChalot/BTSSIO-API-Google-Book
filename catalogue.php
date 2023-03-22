@@ -17,17 +17,13 @@
         transition: .3s all ease;
     }
 
-    .card-container:hover {
-        z-index: 999;
-        transform: scale(1.1);
-    }
-
     .card-container img {
         transition: .3s all ease;
     }
 
     .card-container:hover img {
-        transform: rotate(10deg);
+        transform: scale(1.1) rotateY(10deg) rotateX(10deg);
+        box-shadow: -11px 10px 17px 0px rgba(158, 158, 158, 1);
     }
 
     li {
@@ -59,7 +55,7 @@
                 <?php
                 $title = $_GET['title'];
                 $title = str_replace(' ', '+', $title);
-                $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=3";
+                $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
                 $curl = curl_init($url);
                 $options = array(
                     CURLOPT_RETURNTRANSFER => true,
@@ -79,12 +75,39 @@
                     $data = json_decode($resp, true);
                     $results = $data["items"];
                 }
-                
+
                 ?>
 
                 <div class="center col-md-12 d-flex justify-content-center py-5 flex-wrap gap-4">
+                    <?php if (isset($_GET['page'])) : ?>
+                        <?php if ($_GET['page'] == 1) : ?>
+                            <?php $j = 0;
+                            $count = 3 ?>
+                        <?php elseif ($_GET['page'] == 2) : ?>
+                            <?php $j = 3;
+                            $count = 6 ?>
+                        <?php elseif ($_GET['page'] == 3) : ?>
+                            <?php $j = 6;
+                            $count = 9 ?>
+                        <?php elseif ($_GET['page'] == 4) : ?>
+                            <?php $j = 9;
+                            $count = 12 ?>
+                        <?php elseif ($_GET['page'] == 5) : ?>
+                            <?php $j = 12;
+                            $count = 15 ?>
+                        <?php elseif ($_GET['page'] == 6) : ?>
+                            <?php $j = 15;
+                            $count = 18 ?>
+                        <?php else : ?>
+                            <?php $j = 0;
+                            $count = 3 ?>
+                        <?php endif ?>
+                    <?php else : ?>
+                        <?php $j = 0;
+                        $count = 3 ?>
+                    <?php endif ?>
 
-                    <?php for ($i = 0; $i < count($results); $i++) : ?>
+                    <?php for ($i = $j; $i < $count; $i++) : ?>
 
                         <div class="card card-container shadow">
                             <div class="card-header d-flex justify-content-center align-items-center" style="height: 15rem;">
@@ -111,36 +134,63 @@
                                         </ul>
                                     <?php endif ?>
                                 </div>
-                                <div class="book-description text-justify">
-                                    <?php if (isset($results[$i]["volumeInfo"]["description"])) : ?>
-                                        <details>
-                                            <summary>Details</summary>
-                                            <p><?= $results[$i]["volumeInfo"]["description"]; ?></p>
-                                        </details>
-                                    <?php endif ?>
-                                </div>
                             </div>
                             <div class="card-footer d-flex justify-content-around">
                                 <a class="btn btn-primary" href="<?= $results[$i]['volumeInfo']['previewLink'] ?> " target="_blank">Lire</a>
                                 <?php if (!empty($_SESSION)) : ?>
                                     <a class="btn btn-success" href="http://">Ajouter</a>
                                 <?php endif ?>
-
+                                <?php if (isset($results[$i]['volumeInfo']['description'])) : ?>
+                                    <button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#<?= $results[$i]["id"] ?>">
+                                        <!-- <img src="assets/img/info.svg" alt="btn info"> -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                        </svg>
+                                    </button>
+                                    <div class="modal fade" id="<?= $results[$i]["id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $results[$i]["volumeInfo"]['title'] ?></h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <?= $results[$i]["volumeInfo"]["description"] ?>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
                             </div>
                         </div>
                     <?php endfor ?>
                 </div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
+                        <?php if ($_GET['page'] == 1) : ?>
+                            <li class="page-item disabled">
+                            <?php else : ?>
+                            <li class="page-item">
+                            <?php endif ?>
+                            <a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=<?= $_GET['page'] - 1 ?>">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=1">1</a></li>
+                            <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=2">2</a></li>
+                            <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=3">3</a></li>
+                            <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=4">4</a></li>
+                            <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=5">5</a></li>
+                            <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=6">6</a></li>
+                            <?php if ($_GET['page'] == 6) : ?>
+                                <li class="page-item disabled">
+                                <?php else : ?>
+                                <li class="page-item">
+                                <?php endif ?>
+                                <a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=<?= $_GET['page'] + 1 ?>">Next</a>
+                                </li>
                     </ul>
                 </nav>
 
