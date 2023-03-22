@@ -30,33 +30,19 @@ if (!empty($_GET['func'])) {
         case 'userEdit':
             if (isset($_SESSION['user'])) {
                 $userId = $_SESSION['user']->getId();
-                if (
-                    !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['telephone']) && !empty($_POST['adresse']) && !empty($_POST['profession']) && !empty($_FILES)
-                ) {
+                if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['telephone']) && !empty($_POST['adresse']) && !empty($_POST['profession']) && !empty($_FILES)){ 
+
                     $userNom = str_verify($_POST['nom']);
                     $userPrenom = str_verify($_POST['prenom']);
                     $userProfession = str_verify($_POST['profession']);
                     $userMail = str_verify($_POST['mail']);
                     $userTelephone = str_verify($_POST['telephone']);
                     $userAdresse = str_verify($_POST['adresse']);
-                    
-                    // file_transfert($_FILES['profil_picture']['name']);
-                    $file = rand(1000, 100000) . "-" . $_FILES['profil_picture']['name'];
-                    $file_loc = $_FILES['profil_picture']['tmp_name'];
-                    $final_loc = "../assets/img/users/";
-                    $new_file_name = strtolower($file);
-                    $final_file = str_replace(' ', '-', $new_file_name);
-                    $final_file = str_replace('_', '-', $new_file_name);
-                    move_uploaded_file($file_loc, $final_loc . $final_file);
-
-                    $_SESSION['user']->setPrenom($userPrenom);
-                    $_SESSION['user']->setNom($userNom);
-                    $_SESSION['user']->setProfession($userProfession);
-                    $_SESSION['user']->setMail($userMail);
-                    $_SESSION['user']->setTelephone($userTelephone);
-                    $_SESSION['user']->setAdresse($userAdresse);
-                    $_SESSION['user']->setPhoto($final_file);
+                    $profile_picture = file_transfert($_FILES);
+                    $infos = array($userNom,$userPrenom,$userProfession,$userMail,$userTelephone,$userAdresse,$profile_picture);
+                    user_edit($_SESSION['user'], $infos);
                     header('location: ../user-profil.php');
+                    
                 }
             } else {
                 header('location: ../index.php');

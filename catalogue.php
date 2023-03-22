@@ -1,35 +1,6 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php');
 ?>
-<style>
-    .cascading-right {
-        margin-left: -50px;
-    }
-
-    @media (max-width: 992px) {
-        .cascading-right {
-            margin-right: 0;
-        }
-    }
-
-    .card-container {
-        width: 18rem;
-        transition: .3s all ease;
-    }
-
-    .card-container img {
-        transition: .3s all ease;
-    }
-
-    .card-container:hover img {
-        transform: scale(1.1) rotateY(10deg) rotateX(10deg);
-        box-shadow: -11px 10px 17px 0px rgba(158, 158, 158, 1);
-    }
-
-    li {
-        list-style-type: none;
-    }
-</style>
 <section class="text-center text-lg-start">
     <div class="container py-4">
         <div class="row w-100 d-flex flex-row align-items-center justify-content-center">
@@ -37,7 +8,7 @@
                 <img src="assets/img/backgrounds/librairie_3.png" class="w-100 rounded-4 shadow-4" alt="" />
             </div>
             <div class="center d-flex col-md-6 mb-5 mb-lg-0">
-                <div class="card col-md-12 shadow-sm w-100 center" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
+                <div id="catalogue" class="card cascading-right col-md-12 shadow-sm w-100 center" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
                     <div class="card-body p-5 shadow-5 text-center">
                         <h2 class="fw-bold mb-5">Le catalogue !</h2>
                         <form class="mb-3" action="" method="GET">
@@ -55,56 +26,33 @@
                 <?php
                 $title = $_GET['title'];
                 $title = str_replace(' ', '+', $title);
-                $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
-                $curl = curl_init($url);
-                $options = array(
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_URL => $url,
-                    CURLOPT_CAINFO => __DIR__ . '/assets/Certificat/GTS Root R1.crt'
-                );
-
-                curl_setopt_array($curl, $options);
-
-                $resp = curl_exec($curl);
-
-                if ($e = curl_error($curl)) {
-                    var_dump($e);
+                $results = API_Search($title);
+                if (isset($_GET['page'])) {
+                    $page = $_GET['page'];
                 } else {
-                    $data = json_decode($resp, true);
-                    $results = $data["items"];
+                    $page = 1;
                 }
-
                 ?>
 
                 <div class="center col-md-12 d-flex justify-content-center py-5 flex-wrap gap-4">
-                    <?php if (isset($_GET['page'])) : ?>
-                        <?php if ($_GET['page'] == 1) : ?>
-                            <?php $j = 0;
-                            $count = 3 ?>
-                        <?php elseif ($_GET['page'] == 2) : ?>
-                            <?php $j = 3;
-                            $count = 6 ?>
-                        <?php elseif ($_GET['page'] == 3) : ?>
-                            <?php $j = 6;
-                            $count = 9 ?>
-                        <?php elseif ($_GET['page'] == 4) : ?>
-                            <?php $j = 9;
-                            $count = 12 ?>
-                        <?php elseif ($_GET['page'] == 5) : ?>
-                            <?php $j = 12;
-                            $count = 15 ?>
-                        <?php elseif ($_GET['page'] == 6) : ?>
-                            <?php $j = 15;
-                            $count = 18 ?>
-                        <?php else : ?>
-                            <?php $j = 0;
-                            $count = 3 ?>
-                        <?php endif ?>
-                    <?php else : ?>
+                    <?php if ($page == 1) : ?>
                         <?php $j = 0;
                         $count = 3 ?>
+                    <?php elseif ($page == 2) : ?>
+                        <?php $j = 3;
+                        $count = 6 ?>
+                    <?php elseif ($page == 3) : ?>
+                        <?php $j = 6;
+                        $count = 9 ?>
+                    <?php elseif ($page == 4) : ?>
+                        <?php $j = 9;
+                        $count = 12 ?>
+                    <?php elseif ($page == 5) : ?>
+                        <?php $j = 12;
+                        $count = 15 ?>
+                    <?php else : ?>
+                        <?php $j = 15;
+                        $count = 18 ?>
                     <?php endif ?>
 
                     <?php for ($i = $j; $i < $count; $i++) : ?>
@@ -171,12 +119,12 @@
                 </div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <?php if ($_GET['page'] == 1) : ?>
+                        <?php if ($page == 1) : ?>
                             <li class="page-item disabled">
                             <?php else : ?>
                             <li class="page-item">
                             <?php endif ?>
-                            <a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=<?= $_GET['page'] - 1 ?>">Previous</a>
+                            <a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=<?= $page - 1 ?>">Previous</a>
                             </li>
                             <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=1">1</a></li>
                             <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=2">2</a></li>
@@ -184,12 +132,12 @@
                             <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=4">4</a></li>
                             <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=5">5</a></li>
                             <li class="page-item"><a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=6">6</a></li>
-                            <?php if ($_GET['page'] == 6) : ?>
+                            <?php if ($page == 6) : ?>
                                 <li class="page-item disabled">
                                 <?php else : ?>
                                 <li class="page-item">
                                 <?php endif ?>
-                                <a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=<?= $_GET['page'] + 1 ?>">Next</a>
+                                <a class="page-link" href="catalogue.php?title=<?= $_GET['title'] ?>&page=<?= $page + 1 ?>">Next</a>
                                 </li>
                     </ul>
                 </nav>

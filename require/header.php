@@ -1,3 +1,4 @@
+<?php include 'functions/ft.php'; ?>
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +11,7 @@
     <link rel="icon" href="assets/img/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="C:\wamp64\www\librairie\Librairie\assets\style.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>

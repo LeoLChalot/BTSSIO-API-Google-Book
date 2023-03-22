@@ -18,7 +18,7 @@
     <div class="container py-4">
         <div class="row g-0 align-items-center justify-content-center">
             <div class="center col-lg-5 mb-5 mb-lg-0">
-                <div class="card cascading-right shadow-sm" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
+                <div id="register" class="card cascading-right shadow-sm" style="background: hsla(0, 0%, 100%, 0.55);backdrop-filter: blur(30px);">
                     <div class="card-body p-5 shadow-5 text-center">
                         <h2 class="fw-bold mb-1">Inscrivez-vous !</h2>
                         <form action="functions/form-control.php?func=register" method="post">

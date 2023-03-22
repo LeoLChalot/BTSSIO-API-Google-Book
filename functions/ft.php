@@ -25,14 +25,45 @@ function mail_verify(?string $mail): int
 
     return $compare["COUNT(*)"];
 }
-function file_transfert(?string $File)
+function file_transfert($FILES)
 {
-    $file = rand(1000, 100000) . "-" . $File;
-    $file_loc = $_FILES['profil_picture']['tmp_name'];
+    $file = rand(1000, 100000) . "-" . $FILES['profil_picture']['name'];
+    $file_loc = $FILES['profil_picture']['tmp_name'];
     $final_loc = "../assets/img/users/";
     $new_file_name = strtolower($file);
     $final_file = str_replace(' ', '-', $new_file_name);
     $final_file = str_replace('_', '-', $new_file_name);
     move_uploaded_file($file_loc, $final_loc . $final_file);
-    var_dump($final_file);
+    return $final_file;
+}
+function user_edit($obj, $arr)
+{
+    $obj->setPrenom($arr[0]);
+    $obj->setNom($arr[1]);
+    $obj->setProfession($arr[2]);
+    $obj->setMail($arr[3]);
+    $obj->setTelephone($arr[4]);
+    $obj->setAdresse($arr[5]);
+    $obj->setPhoto($arr[6]);
+}
+function API_Search($title)
+{
+    $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
+    $curl = curl_init($url);
+    $options = array(
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => array('Content-type: application/json'),
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_URL => $url,
+        CURLOPT_CAINFO => __DIR__ . './../assets/Certificat/GTS Root R1.crt'
+    );
+    curl_setopt_array($curl, $options);
+    $resp = curl_exec($curl);
+    if ($e = curl_error($curl)) {
+        var_dump($e);
+    } else {
+        $data = json_decode($resp, true);
+        $results = $data["items"];
+    }
+    return $results;
 }
