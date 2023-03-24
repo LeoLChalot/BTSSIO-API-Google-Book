@@ -37,7 +37,7 @@ class Book
     }
     public function search_book_id($bookId)
     {
-        $url = "https://books.google.com/ebooks?id=$bookId";
+        $url = "https://www.googleapis.com/books/v1/volumes/$bookId";
         $curl = curl_init($url);
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
@@ -53,7 +53,6 @@ class Book
         } else {
             $data = json_decode($resp, true);
             $result = $data;
-            
         }
         return $result;
     }

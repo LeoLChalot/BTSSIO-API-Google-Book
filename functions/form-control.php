@@ -84,9 +84,18 @@ if (!empty($_GET['func'])) {
             header('location: ../index.php');
             break;
         case 'addBook':
+            $id_user = $_SESSION['user']->getId();
             $book = new Book();
             $book = $book->search_book_id($_GET['bookId']);
-            var_dump($book);
+            $req_add = $connexion->prepare("INSERT INTO biblio_perso(`book_id`, `title`, `subtitle`, `description`, `pageCount`, `img`, `id_user`)VALUES(:book_id, :title, :subtitle, :description, :pageCount, :img, :id_user)");
+            $req_add->bindParam(':book_id', $book['id']);
+            $req_add->bindParam(':title', $book['volumeInfo']['title']);
+            $req_add->bindParam(':subtitle', $book['volumeInfo']['subtitle']);
+            $req_add->bindParam(':description', $book['volumeInfo']['description']);
+            $req_add->bindParam(':pageCount', $book['volumeInfo']['pageCount']);
+            $req_add->bindParam(':img', $book['volumeInfo']['imageLinks']['smallThumbnail']);
+            $req_add->bindParam(':id_user', $id_user);
+            $req_add->execute();
 
             echo "Livre ajouté !";
             break;
