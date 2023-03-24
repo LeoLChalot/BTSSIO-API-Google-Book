@@ -1,6 +1,7 @@
 <?php
 include(__DIR__ . '/../require/bdd-on.php');
 include 'ft.php';
+include '../class/Book.php';
 if (!empty($_GET['func'])) {
     $function = $_GET['func'];
     switch ($function) {
@@ -83,6 +84,11 @@ if (!empty($_GET['func'])) {
             header('location: ../index.php');
             break;
         case 'addBook':
+            $book = new Book();
+            $book = $book->search_book_id($_GET['bookId']);
+            var_dump($book);
+
+            echo "Livre ajouté !";
             break;
         default:
             header('location: ../index.php');

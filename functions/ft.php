@@ -48,6 +48,7 @@ function user_edit($obj, $arr)
 }
 function API_Search($title)
 {
+    $title = str_replace(' ', '+', $title);
     $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
     $curl = curl_init($url);
     $options = array(

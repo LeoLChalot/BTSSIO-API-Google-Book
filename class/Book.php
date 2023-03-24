@@ -8,16 +8,54 @@ class Book
     private ?string $page_count;
     private ?string $img_link;
 
-    public function __construct(?string $title, ?string $subtitle, ?string $img_link)
+    public function __construct()
     {
     }
 
     // * ACTIONS
-    public function search_book_name($keyword)
+    public function search_book_name($title)
     {
+        $title = str_replace(' ', '+', $title);
+        $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
+        $curl = curl_init($url);
+        $options = array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array('Content-type: application/json'),
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_URL => $url,
+            CURLOPT_CAINFO => __DIR__ . './../assets/Certificat/GTS Root R1.crt'
+        );
+        curl_setopt_array($curl, $options);
+        $resp = curl_exec($curl);
+        if ($e = curl_error($curl)) {
+            var_dump($e);
+        } else {
+            $data = json_decode($resp, true);
+            $results = $data["items"];
+        }
+        return $results;
     }
     public function search_book_id($bookId)
     {
+        $url = "https://books.google.com/ebooks?id=$bookId";
+        $curl = curl_init($url);
+        $options = array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array('Content-type: application/json'),
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_URL => $url,
+            CURLOPT_CAINFO => __DIR__ . './../assets/Certificat/GTS Root R1.crt'
+        );
+        curl_setopt_array($curl, $options);
+        $resp = curl_exec($curl);
+        if ($e = curl_error($curl)) {
+            var_dump($e);
+        } else {
+            $data = json_decode($resp, true);
+            $result = $data;
+            
+        }
+        return $result;
     }
     public function add_to_collection()
     {
