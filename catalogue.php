@@ -87,9 +87,32 @@ include 'class/Book.php';
                             <div class="card-footer d-flex justify-content-around">
                                 <a class="btn btn-primary" href="<?= $book[$i]['volumeInfo']['previewLink'] ?> " target="_blank">Lire</a>
                                 <?php if (!empty($_SESSION)) : ?>
-                                    <form action="functions/form-control.php?bookId=<?= $book[$i]['id']?>&func=addBook" method="post">
-                                        <input class="btn btn-success" type="submit" value="Ajouter">
-                                    </form>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                        Ajouter
+                                    </button>
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Confirmation d'ajout du livre...</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body w-100 d-flex flex-column justify-content-center align-items-center">
+                                                    <p>Vous êtes sur le point d'ajouter cette référence à votre collection privée.</p>
+                                                    <div class="spinner-border text-success" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                    <form action="?bookId=<?= $book[$i]['id'] ?>" method="post">
+                                                        <input class="btn btn-success" type="submit" value="Ajouter">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 <?php endif ?>
                                 <?php if (isset($book[$i]['volumeInfo']['description'])) : ?>
                                     <button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#<?= $book[$i]["id"] ?>">
@@ -152,7 +175,30 @@ include 'class/Book.php';
 
         </div>
     </div>
-
 </section>
 <?php require_once(__DIR__ . '/require/footer.php'); ?>
+<?php
+
+if (isset($_SESSION['user']) && isset($_GET['bookId'])) {
+    $id_user = $_SESSION['user']->getId();
+    $book = new Book();
+    $book = $book->search_book_id($_GET['bookId']);
+    $book_id = $book['id'];
+    $req_verif = $connexion->prepare("SELECT COUNT(*) FROM biblio_perso WHERE book_id = '$book_id'");
+    $req_verif->execute();
+    $compare = $req_verif->fetch(PDO::FETCH_ASSOC);
+    if ($compare["COUNT(*)"] == 0) {
+        $req_add = $connexion->prepare("INSERT INTO biblio_perso(`book_id`, `title`, `subtitle`, `description`, `pageCount`, `img`, `id_user`)VALUES(:book_id, :title, :subtitle, :description, :pageCount, :img, :id_user)");
+        $req_add->bindParam(':book_id', $book['id']);
+        $req_add->bindParam(':title', $book['volumeInfo']['title']);
+        $req_add->bindParam(':subtitle', $book['volumeInfo']['subtitle']);
+        $req_add->bindParam(':description', $book['volumeInfo']['description']);
+        $req_add->bindParam(':pageCount', $book['volumeInfo']['pageCount']);
+        $req_add->bindParam(':img', $book['volumeInfo']['imageLinks']['smallThumbnail']);
+        $req_add->bindParam(':id_user', $id_user);
+        $req_add->execute();
+    }
+}
+
+?>
 <?php require_once(__DIR__ . '/require/bdd-off.php'); ?>

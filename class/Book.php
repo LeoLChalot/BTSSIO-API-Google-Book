@@ -13,7 +13,7 @@ class Book
     }
 
     // * ACTIONS
-    public function search_book_name($title): object
+    public function search_book_name($title): array
     {
         $title = str_replace(' ', '+', $title);
         $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
@@ -35,7 +35,7 @@ class Book
         }
         return $results;
     }
-    public function search_book_id($bookId): object
+    public function search_book_id($bookId): array
     {
         $url = "https://www.googleapis.com/books/v1/volumes/$bookId";
         $curl = curl_init($url);

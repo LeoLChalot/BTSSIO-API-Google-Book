@@ -87,17 +87,25 @@ if (!empty($_GET['func'])) {
             $id_user = $_SESSION['user']->getId();
             $book = new Book();
             $book = $book->search_book_id($_GET['bookId']);
-            $req_add = $connexion->prepare("INSERT INTO biblio_perso(`book_id`, `title`, `subtitle`, `description`, `pageCount`, `img`, `id_user`)VALUES(:book_id, :title, :subtitle, :description, :pageCount, :img, :id_user)");
-            $req_add->bindParam(':book_id', $book['id']);
-            $req_add->bindParam(':title', $book['volumeInfo']['title']);
-            $req_add->bindParam(':subtitle', $book['volumeInfo']['subtitle']);
-            $req_add->bindParam(':description', $book['volumeInfo']['description']);
-            $req_add->bindParam(':pageCount', $book['volumeInfo']['pageCount']);
-            $req_add->bindParam(':img', $book['volumeInfo']['imageLinks']['smallThumbnail']);
-            $req_add->bindParam(':id_user', $id_user);
-            $req_add->execute();
-
-            echo "Livre ajouté !";
+            $book_id = $book['id'];
+            $req_verif = $connexion->prepare("SELECT COUNT(*) FROM biblio_perso WHERE book_id = '$book_id'");
+            $req_verif->execute();
+            $compare = $req_verif->fetch(PDO::FETCH_ASSOC);
+            if($compare["COUNT(*)"] == 0){
+                $req_add = $connexion->prepare("INSERT INTO biblio_perso(`book_id`, `title`, `subtitle`, `description`, `pageCount`, `img`, `id_user`)VALUES(:book_id, :title, :subtitle, :description, :pageCount, :img, :id_user)");
+                $req_add->bindParam(':book_id', $book['id']);
+                $req_add->bindParam(':title', $book['volumeInfo']['title']);
+                $req_add->bindParam(':subtitle', $book['volumeInfo']['subtitle']);
+                $req_add->bindParam(':description', $book['volumeInfo']['description']);
+                $req_add->bindParam(':pageCount', $book['volumeInfo']['pageCount']);
+                $req_add->bindParam(':img', $book['volumeInfo']['imageLinks']['smallThumbnail']);
+                $req_add->bindParam(':id_user', $id_user);
+                $req_add->execute();
+                header('location: ../index.php');
+            } else {
+                header('location: ../catalogue.php');
+            }
+            
             break;
         default:
             header('location: ../index.php');
