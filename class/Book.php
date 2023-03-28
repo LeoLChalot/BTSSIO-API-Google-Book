@@ -4,8 +4,8 @@ class Book
     private ?string $title;
     private ?string $subtitle;
     private ?string $description;
-    private ?string $author;
-    private ?string $page_count;
+    private ?string $authors;
+    private ?string $pages_count;
     private ?string $img_link;
 
     public function __construct()
@@ -13,7 +13,7 @@ class Book
     }
 
     // * ACTIONS
-    public function search_book_name($title)
+    public function search_book_name($title): object
     {
         $title = str_replace(' ', '+', $title);
         $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
@@ -35,7 +35,7 @@ class Book
         }
         return $results;
     }
-    public function search_book_id($bookId)
+    public function search_book_id($bookId): object
     {
         $url = "https://www.googleapis.com/books/v1/volumes/$bookId";
         $curl = curl_init($url);
@@ -56,50 +56,63 @@ class Book
         }
         return $result;
     }
-    public function add_to_collection()
+    public function add_to_collection(?int $user_id): void
     {
+
     }
-    public function delete_from_collection()
+    public function delete_from_collection(): void
     {
     }
 
     // * GETTERS
-    public function get_title()
+    public function get_title(): string
     {
+        return $this->title;
     }
-    public function get_sub_title()
+    public function get_sub_title(): string
     {
+        return $this->subtitle;
     }
-    public function get_description()
+    public function get_description(): string
     {
+        return $this->description;
     }
-    public function get_author()
+    public function get_authors(): string
     {
+        return $this->authors;
     }
-    public function get_page_count()
+    public function get_page_count(): string
     {
+        return $this->pages_count;
     }
-    public function get_img_link()
+    public function get_img_link(): string
     {
+        return $this->img_link;
     }
 
     // * SETTERS
-    public function set_title()
+    public function set_title(?string $title): void
     {
+        $this->title = $title;
     }
-    public function set_sub_title()
+    public function set_subtitle(?string $subtitle): void
     {
+        $this->subtitle = $subtitle;
     }
-    public function set_description()
+    public function set_description(?string $description): void
     {
+        $this->description = $description;
     }
-    public function set_author()
+    public function set_authors(?string $authors): void
     {
+        $this->authors = $authors;
     }
-    public function set_page_count()
+    public function set_page_count(?string $pages_count): void
     {
+        $this->pages_count = $pages_count;
     }
-    public function set_img_link()
+    public function set_img_link(?string $img_link): void
     {
+        $this->img_link = $img_link;
     }
 }

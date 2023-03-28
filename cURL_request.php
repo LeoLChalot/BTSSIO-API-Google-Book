@@ -54,35 +54,34 @@
             <input type="text" name="title" id="title">
             <input type="submit" value="Chercher">
         </form>
-
     </div>
     <div class="cURL">
         <?php
-        if (!empty($_GET['title'])) : ?>
-            <?php
-            $key = '$AIzaSyAY1N3MiifNN02kmk2X6j64tk6WVP57kqQ';
-            $title = $_GET['title'];
-            $title = str_replace(' ', '+', $title);
+            if (!empty($_GET['title'])) : ?>
+                <?php
+                $key = '$AIzaSyAY1N3MiifNN02kmk2X6j64tk6WVP57kqQ';
+                $title = $_GET['title'];
+                $title = str_replace(' ', '+', $title);
 
-            $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=1";
-            $curl = curl_init($url);
-            $options = array(
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_URL => $url,
-                CURLOPT_CAINFO => __DIR__ . '/assets/Certificat/GTS Root R1.crt'
-            );
+                $url = "https://www.googleapis.com/books/v1/volumes?q=$title&   langRestrict=fr&maxResults=1";
+                $curl = curl_init($url);
+                $options = array(
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_HTTPHEADER => array('Content-type: application/ json'),
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_URL => $url,
+                    CURLOPT_CAINFO => __DIR__ . '/assets/Certificat/GTS Root R1.    crt'
+                );
 
-            curl_setopt_array($curl, $options);
-            $resp = curl_exec($curl);
-            if ($e = curl_error($curl)) {
-                var_dump($e);
-            } else {
-                $data = json_decode($resp, true);
-                $results = $data["items"];
-                // var_dump($data);
-            }
+                curl_setopt_array($curl, $options);
+                $resp = curl_exec($curl);
+                if ($e = curl_error($curl)) {
+                    var_dump($e);
+                } else {
+                    $data = json_decode($resp, true);
+                    $results = $data["items"];
+                    // var_dump($data);
+                }
             ?>
             <table>
                 <thead>
@@ -194,17 +193,16 @@
                     </tr>
                 </tbody>
             </table>
-
         <?php
-        endif
-        ?>
+            endif
+            ?>
     </div>
     <a href="index.php"><button type="button" class="btn btn-success">Retour</button></a>
-
     <?php
-    if (isset($curl)) {
+        if (isset($curl)) {
         curl_close($curl);
-    } ?>
+        } 
+        ?>
 </body>
 
 </html>
