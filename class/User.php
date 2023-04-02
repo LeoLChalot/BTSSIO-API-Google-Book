@@ -1,7 +1,7 @@
 <?php
 class User
 {
-    private ?string $id;
+    private ?int $id;
     private ?string $prenom;
     private ?string $nom;
     private ?string $mail;
@@ -20,6 +20,10 @@ class User
         $this->mail = $mail;
         $this->pwd = $pwd;
         $this->role = "user";
+    }
+    public function add_to_collection(?object $book): void
+    {
+        array_push($this->collection, $book);
     }
 
     // * ACTIONS
@@ -74,7 +78,7 @@ class User
     }
 
     // * GETTERS
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -114,7 +118,7 @@ class User
     {
         return $this->profile_picture;
     }
-    public function showCollection(): array
+    public function getCollection(): array
     {
         return $this->collection;
     }
@@ -148,7 +152,7 @@ class User
         $sth_edit->bindParam(':mail', $this->mail);
         $sth_edit->execute();
     }
-    public function setProfession($profession)
+    public function setProfession($profession): void
     {
         $this->profession = $profession;
         $connexion = $this->PDO_connexion();
@@ -156,7 +160,7 @@ class User
         $sth_edit->bindParam(':profession', $this->profession);
         $sth_edit->execute();
     }
-    public function setTelephone($telephone)
+    public function setTelephone($telephone): void
     {
         $this->telephone = $telephone;
         $connexion = $this->PDO_connexion();
@@ -164,7 +168,7 @@ class User
         $sth_edit->bindParam(':telephone', $this->telephone);
         $sth_edit->execute();
     }
-    public function setAdresse($adresse)
+    public function setAdresse($adresse): void
     {
         $this->adresse = $adresse;
         $connexion = $this->PDO_connexion();
@@ -172,7 +176,7 @@ class User
         $sth_edit->bindParam(':adresse', $this->adresse);
         $sth_edit->execute();
     }
-    public function setPhoto($profile_picture)
+    public function setPhoto($profile_picture): void
     {
         $this->profile_picture = $profile_picture;
         $connexion = $this->PDO_connexion();

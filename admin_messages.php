@@ -3,6 +3,11 @@
 <?php if (!empty($_POST['mail'])) {
     $userMail = $_POST['mail'];
 }
+if(isset($_POST['optionFilter'])){
+    $filtre = $_POST['optionFilter'];
+} else {
+    $filtre = 1;
+}
 ?>
 <?php if (!empty($_SESSION)) : ?>
 

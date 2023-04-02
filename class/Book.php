@@ -54,14 +54,6 @@ class Book
         }
         return $result;
     }
-    public function add_to_collection(): void
-    {
-        
-    }
-
-    public function delete_from_collection(): void
-    {
-    }
 
     // * GETTERS
     public function get_title(): string

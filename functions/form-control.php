@@ -100,6 +100,7 @@ if (!empty($_GET['func'])) {
                 $req_add->bindParam(':img', $book['volumeInfo']['imageLinks']['smallThumbnail']);
                 $req_add->bindParam(':id_user', $id_user);
                 $req_add->execute();
+                $_SESSION['user']->add_to_collection($book);
                 header('location: ../index.php');
             } else {
                 header('location: ../catalogue.php');
