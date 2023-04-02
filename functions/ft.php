@@ -1,5 +1,4 @@
 <?php
-
 function str_verify(?string $str): string
 {
     $str = htmlspecialchars($str);
@@ -25,7 +24,7 @@ function mail_verify(?string $mail): int
 
     return $compare["COUNT(*)"];
 }
-function file_transfert($FILES)
+function file_transfert(?string $FILES): string
 {
     $file = rand(1000, 100000) . "-" . $FILES['profil_picture']['name'];
     $file_loc = $FILES['profil_picture']['tmp_name'];
@@ -36,17 +35,24 @@ function file_transfert($FILES)
     move_uploaded_file($file_loc, $final_loc . $final_file);
     return $final_file;
 }
-function user_edit($obj, $arr)
+function user_edit(?object $user, ?array $arr): void
 {
-    $obj->setPrenom($arr[0]);
-    $obj->setNom($arr[1]);
-    $obj->setProfession($arr[2]);
-    $obj->setMail($arr[3]);
-    $obj->setTelephone($arr[4]);
-    $obj->setAdresse($arr[5]);
-    $obj->setPhoto($arr[6]);
+    $userNom = str_verify($arr[0]);
+    $userPrenom = str_verify($arr[1]);
+    $userProfession = str_verify($arr[2]);
+    $userMail = str_verify($arr[3]);
+    $userTelephone = str_verify($arr[4]);
+    $userAdresse = str_verify($arr[5]);
+    $profile_picture = file_transfert($arr[6]);
+    $user->setPrenom($userNom);
+    $user->setNom($userPrenom);
+    $user->setProfession($userProfession);
+    $user->setMail($userMail);
+    $user->setTelephone($userTelephone);
+    $user->setAdresse($userAdresse);
+    $user->setPhoto($profile_picture);
 }
-function API_Search($title)
+function API_Search(?string $title): array
 {
     $title = str_replace(' ', '+', $title);
     $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";

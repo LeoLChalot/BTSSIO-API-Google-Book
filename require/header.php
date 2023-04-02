@@ -51,7 +51,7 @@
                 <?php endif ?>
                 <li><a href="http://localhost/librairie/Librairie/" class="nav-link px-2 link-secondary">Home</a></li>
                 <li><a href="http://localhost/librairie/Librairie/catalogue.php" class="nav-link px-2 link-dark">Catalogue</a></li>
-                <li><a href="http://localhost/librairie/Librairie/contact.php" class="nav-link px-2 link-dark">contact</a></li>
+                <li><a href="http://localhost/librairie/Librairie/contact.php" class="nav-link px-2 link-dark">Contact</a></li>
             </ul>
 
             <div class="col-md-5 text-end">

@@ -21,10 +21,6 @@ class User
         $this->pwd = $pwd;
         $this->role = "user";
     }
-    public function add_to_collection(?object $book): void
-    {
-        array_push($this->collection, $book);
-    }
 
     // * ACTIONS
     public function PDO_connexion()
@@ -76,7 +72,10 @@ class User
         session_destroy();
         header('location: ../index.php');
     }
-
+    public function add_to_collection(?object $book): void
+    {
+        $this->collection = $book;
+    }
     // * GETTERS
     public function getId(): int
     {

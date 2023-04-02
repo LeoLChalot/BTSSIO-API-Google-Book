@@ -20,7 +20,6 @@ if (!empty($_GET['func'])) {
             }
             header('location: ../register.php');
             break;
-
         case 'login':
             $userMail = str_verify($_POST['mail']);
             $userMDP = str_verify($_POST['mdp']);
@@ -31,16 +30,14 @@ if (!empty($_GET['func'])) {
         case 'userEdit':
             if (isset($_SESSION['user'])) {
                 $userId = $_SESSION['user']->getId();
-                if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['telephone']) && !empty($_POST['adresse']) && !empty($_POST['profession']) && !empty($_FILES)) {
-
-                    $userNom = str_verify($_POST['nom']);
-                    $userPrenom = str_verify($_POST['prenom']);
-                    $userProfession = str_verify($_POST['profession']);
-                    $userMail = str_verify($_POST['mail']);
-                    $userTelephone = str_verify($_POST['telephone']);
-                    $userAdresse = str_verify($_POST['adresse']);
-                    $profile_picture = file_transfert($_FILES);
-                    $infos = array($userNom, $userPrenom, $userProfession, $userMail, $userTelephone, $userAdresse, $profile_picture);
+                if (!empty($_POST['nom']) 
+                && !empty($_POST['prenom']) 
+                && !empty($_POST['mail']) 
+                && !empty($_POST['telephone']) 
+                && !empty($_POST['adresse']) 
+                && !empty($_POST['profession']) 
+                && !empty($_FILES)) {
+                    $infos = array($_POST['nom'], $_POST['prenom'], $_POST['profession'], $_POST['mail'], $_POST['telephone'], $_POST['adresse'], $_FILES);
                     user_edit($_SESSION['user'], $infos);
                     header('location: ../user-profil.php');
                 }
@@ -48,7 +45,6 @@ if (!empty($_GET['func'])) {
                 header('location: ../index.php');
             }
             break;
-
         case 'logout':
             $_SESSION['user']->deconnexion();
             break;
@@ -72,7 +68,9 @@ if (!empty($_GET['func'])) {
                 $userId = null;
                 $isRegister = false;
             }
-            $sth_send = $connexion->prepare("INSERT INTO messages(`id_user`, `mail`, `isRegister`, `sujet`, `msg`, `dateEnvoi`)VALUES(:id_user, :mail, :isRegister, :sujet, :msg, :dateEnvoi)");
+            $sth_send = $connexion->prepare(
+                "INSERT INTO messages(`id_user`, `mail`, `isRegister`, `sujet`, `msg`, `dateEnvoi`)
+                VALUES(:id_user, :mail, :isRegister, :sujet, :msg, :dateEnvoi)");
             $sth_send->bindParam(':id_user', $userId);
             $sth_send->bindParam(':mail', $mail);
             $sth_send->bindParam(':isRegister', $isRegister);
@@ -87,11 +85,18 @@ if (!empty($_GET['func'])) {
             $book = new Book();
             $book = $book->search_book_id($_GET['bookId']);
             $book_id = $book['id'];
-            $req_verif = $connexion->prepare("SELECT COUNT(*) FROM biblio_perso WHERE book_id = '$book_id'");
+            var_dump($book_id);
+            die();
+            $req_verif = $connexion->prepare(
+                "SELECT COUNT(*) 
+                FROM biblio_perso 
+                WHERE book_id = '$book_id'");
             $req_verif->execute();
             $compare = $req_verif->fetch(PDO::FETCH_ASSOC);
             if ($compare["COUNT(*)"] == 0) {
-                $req_add = $connexion->prepare("INSERT INTO biblio_perso(`book_id`, `title`, `subtitle`, `description`, `pageCount`, `img`, `id_user`)VALUES(:book_id, :title, :subtitle, :description, :pageCount, :img, :id_user)");
+                $req_add = $connexion->prepare(
+                    "INSERT INTO biblio_perso(`book_id`, `title`, `subtitle`, `description`, `pageCount`, `img`, `id_user`)
+                    VALUES(:book_id, :title, :subtitle, :description, :pageCount, :img, :id_user)");
                 $req_add->bindParam(':book_id', $book['id']);
                 $req_add->bindParam(':title', $book['volumeInfo']['title']);
                 $req_add->bindParam(':subtitle', $book['volumeInfo']['subtitle']);
@@ -100,7 +105,7 @@ if (!empty($_GET['func'])) {
                 $req_add->bindParam(':img', $book['volumeInfo']['imageLinks']['smallThumbnail']);
                 $req_add->bindParam(':id_user', $id_user);
                 $req_add->execute();
-                $_SESSION['user']->add_to_collection($book);
+                // $_SESSION['user']->add_to_collection($book);
                 header('location: ../index.php');
             } else {
                 header('location: ../catalogue.php');

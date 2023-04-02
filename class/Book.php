@@ -11,7 +11,19 @@ class Book
     public function __construct(){}
     
     // * ACTIONS
-    static function search_book_name($title): array
+    public function PDO_connexion()
+    {
+        try {
+            $connexion = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DBNAME . "", USERNAME, PASSWORD);
+            $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $connexion->beginTransaction();
+        } catch (PDOException $e) {
+            $connexion->rollBack();
+            echo "Erreur : " . $e->getMessage();
+        }
+        return $connexion;
+    }
+    static function search_book_name(?string $title): array
     {
         $title = str_replace(' ', '+', $title);
         $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
@@ -33,7 +45,7 @@ class Book
         }
         return $results;
     }
-    static function search_book_id($bookId): array
+    static function search_book_id(?string $bookId): array
     {
         $url = "https://www.googleapis.com/books/v1/volumes/$bookId";
         $curl = curl_init($url);
@@ -53,6 +65,11 @@ class Book
             $result = $data;
         }
         return $result;
+    }
+    public function add_book(?int $user_id): void
+    {
+        $connexion = $this->PDO_connexion();
+
     }
 
     // * GETTERS

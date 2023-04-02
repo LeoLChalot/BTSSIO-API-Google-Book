@@ -1,6 +1,6 @@
 <?php require_once(__DIR__ . '/require/bdd-on.php'); ?>
 <?php require_once(__DIR__ . '/require/header.php'); ?>
-<?php var_dump($_SESSION['user']->getCollection()); ?>
+<!-- <?php var_dump($_SESSION['user']->getCollection()); ?> -->
 <section class="py-5 text-center container">
     <h1 class="fw-light">Librairie - Le mille feuilles</h1>
     <p class="lead text-muted">Bienvenue dans votre collection personnelles...</p>
