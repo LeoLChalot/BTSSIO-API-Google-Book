@@ -11,6 +11,7 @@ class User
     private ?string $telephone;
     private ?string $adresse;
     private ?string $profile_picture;
+    private ?array $collection = [];
 
     public function __construct(?string $prenom, ?string $nom, ?string $mail, ?string $pwd)
     {
@@ -112,6 +113,10 @@ class User
     public function getPhoto(): string
     {
         return $this->profile_picture;
+    }
+    public function showCollection(): array
+    {
+        return $this->collection;
     }
 
     // * SETTERS

@@ -31,7 +31,7 @@ if (!empty($_GET['func'])) {
         case 'userEdit':
             if (isset($_SESSION['user'])) {
                 $userId = $_SESSION['user']->getId();
-                if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['telephone']) && !empty($_POST['adresse']) && !empty($_POST['profession']) && !empty($_FILES)){ 
+                if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['telephone']) && !empty($_POST['adresse']) && !empty($_POST['profession']) && !empty($_FILES)) {
 
                     $userNom = str_verify($_POST['nom']);
                     $userPrenom = str_verify($_POST['prenom']);
@@ -40,10 +40,9 @@ if (!empty($_GET['func'])) {
                     $userTelephone = str_verify($_POST['telephone']);
                     $userAdresse = str_verify($_POST['adresse']);
                     $profile_picture = file_transfert($_FILES);
-                    $infos = array($userNom,$userPrenom,$userProfession,$userMail,$userTelephone,$userAdresse,$profile_picture);
+                    $infos = array($userNom, $userPrenom, $userProfession, $userMail, $userTelephone, $userAdresse, $profile_picture);
                     user_edit($_SESSION['user'], $infos);
                     header('location: ../user-profil.php');
-                    
                 }
             } else {
                 header('location: ../index.php');
@@ -67,7 +66,7 @@ if (!empty($_GET['func'])) {
             );
             $date = implode(' - ', $dateGlobal);
             if (!empty($_SESSION)) {
-                $userId = $_SESSION['id'];
+                $userId = $_SESSION['user']->getId();
                 $isRegister = true;
             } else {
                 $userId = null;
@@ -91,7 +90,7 @@ if (!empty($_GET['func'])) {
             $req_verif = $connexion->prepare("SELECT COUNT(*) FROM biblio_perso WHERE book_id = '$book_id'");
             $req_verif->execute();
             $compare = $req_verif->fetch(PDO::FETCH_ASSOC);
-            if($compare["COUNT(*)"] == 0){
+            if ($compare["COUNT(*)"] == 0) {
                 $req_add = $connexion->prepare("INSERT INTO biblio_perso(`book_id`, `title`, `subtitle`, `description`, `pageCount`, `img`, `id_user`)VALUES(:book_id, :title, :subtitle, :description, :pageCount, :img, :id_user)");
                 $req_add->bindParam(':book_id', $book['id']);
                 $req_add->bindParam(':title', $book['volumeInfo']['title']);
@@ -105,7 +104,24 @@ if (!empty($_GET['func'])) {
             } else {
                 header('location: ../catalogue.php');
             }
-            
+            break;
+        case 'deleteBook':
+            if (!empty($_GET['idBook'])) {
+                $id_user = $_SESSION['user']->getId();
+                $book_id = $_GET['idBook'];
+
+                $req_sup = $connexion->prepare(
+                    "DELETE FROM `biblio_perso` 
+                    WHERE book_id = :book_id 
+                    AND id_user = :id_user"
+                );
+                $req_sup->bindParam(':book_id', $book_id);
+                $req_sup->bindParam(':id_user', $id_user);
+                $req_sup->execute();
+                header('location: ../user-collection.php');
+            } else {
+                header('location: ../index.php');
+            }
             break;
         default:
             header('location: ../index.php');

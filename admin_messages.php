@@ -4,7 +4,8 @@
     $userMail = $_POST['mail'];
 }
 ?>
-<?php if (!empty($_SESSION) && $_SESSION['role'] == 'admin') : ?>
+<?php if (!empty($_SESSION)) : ?>
+
 
     <section class="text-left container">
 

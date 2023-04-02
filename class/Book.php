@@ -8,12 +8,10 @@ class Book
     private ?string $pages_count;
     private ?string $img_link;
 
-    public function __construct()
-    {
-    }
-
+    public function __construct(){}
+    
     // * ACTIONS
-    public function search_book_name($title): array
+    static function search_book_name($title): array
     {
         $title = str_replace(' ', '+', $title);
         $url = "https://www.googleapis.com/books/v1/volumes?q=$title&langRestrict=fr&maxResults=18";
@@ -35,7 +33,7 @@ class Book
         }
         return $results;
     }
-    public function search_book_id($bookId): array
+    static function search_book_id($bookId): array
     {
         $url = "https://www.googleapis.com/books/v1/volumes/$bookId";
         $curl = curl_init($url);
@@ -56,10 +54,11 @@ class Book
         }
         return $result;
     }
-    public function add_to_collection(?int $user_id): void
+    public function add_to_collection(): void
     {
-
+        
     }
+
     public function delete_from_collection(): void
     {
     }

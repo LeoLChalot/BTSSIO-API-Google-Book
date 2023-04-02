@@ -10,7 +10,6 @@
         $req_collection = $connexion->prepare("SELECT * FROM biblio_perso WHERE id_user = '$id_user' ORDER BY title");
         $req_collection->execute();
         $biblio = $req_collection->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($biblio);
     }
     ?>
     <div class="center col-md-12 d-flex justify-content-center py-5 flex-wrap gap-4">
@@ -32,10 +31,10 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-around">
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter<?= $biblio[$i]["book_id"] ?>">
                         Supprimer
                     </button>
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                    <div class="modal fade" id="exampleModalCenter<?= $biblio[$i]["book_id"] ?>" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -50,10 +49,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                    <!-- <?php var_dump($biblio[$i]["book_id"])?> -->
-                                    <form method="GET" action="?book=<?= $biblio[$i]["book_id"] ?>">
-                                        <input class="btn btn-danger" type="submit" value="Supprimer">
-                                    </form>
+                                    <a class="btn btn-danger" href="functions/form-control.php?func=deleteBook&idBook=<?= $biblio[$i]["book_id"] ?>">Supprimer</a>
                                 </div>
                             </div>
                         </div>
@@ -63,26 +59,6 @@
             </div>
         <?php endfor ?>
     </div>
-
-
 </section>
 <?php require_once(__DIR__ . '/require/footer.php'); ?>
-<?php
-// var_dump($_POST['book']);
-
-if (isset($_GET['book'])) {
-    var_dump($_GET['book']);
-    $id_user = $_SESSION['user']->getId();
-    $book_id = $_GET['book'];
-    $req_add = $connexion->prepare(
-        "DELETE FROM biblio_perso 
-        WHERE book_id = '$book_id' 
-        AND id_user = '$id_user'"
-    );
-    $req_add->execute();
-}
-
-
-?>
-
 <?php require_once(__DIR__ . '/require/bdd-off.php'); ?>
